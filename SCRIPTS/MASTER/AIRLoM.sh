@@ -108,7 +108,9 @@ format_name
 #correct_j_minus
 #correct_v_plus
 
-
+# ----- CORRECT V COORDINATES -----
+mkdir -p ./RESULTS/$SPECIE/V_RSS_CORRECTED
+correct_v_plus
 
 # ----- FINAL MESSAGE -----
 end=$SECONDS
