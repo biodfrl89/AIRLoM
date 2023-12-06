@@ -1,9 +1,11 @@
 # AIRLoM (Adaptive Immune-Receptor Locus Mapper)
 
-# DESCRIPTION
-This repository contains all the scripts required for the correct functioning of the master script of inmunoglobulin detection tool.
+# Description
+This repository contains a bioinformatic tool depevoped to predict the structur of the IGH locus of any desired genome. It is designed to operate using commonly used alignment tools, as well as particular-designed analysis scripts. The information produced is used to predict the location of IGH-V, -D, -J, -C segments within the IGH locus. 
 
-# STRUCTURE
+# Structure
+This section describes the general steps performed by AIRLoM, in order to have a general overview of the pipeline.
+
 0. Variables confirmation
 1. Make CDHIT reductions.
 2. Align with CLUSTALW2 the RSS reductions.
@@ -20,19 +22,20 @@ This repository contains all the scripts required for the correct functioning of
 13. Correct V segments and RSS-J coordinates.
 14. Predict D segments based in founded RSS-D.
 
-# MAIN MODULES
+# MAIN MODULES (MASTER AND FUNCTION)
+AIRLoM is controled by a master script, structured in a series of functions located in the fun.sh script. This modulation was made to have a better control of every step of the analysis, and even exclude parts of it.
+
+# SUB MODULES (SUBSCRIPTS)
+Subscript were made in order to format the results obtained, perform reduction of coordinates redundancy, and make overlap analysis. 
 
 <!---TRANSFORM BLAST M6 TO GFF-->
-
-## blast_m6_to_gff.py
+## blast_m6_to_gff.R
 This script transforms blast format 6 (tabular with 11 columns) into a gff file, along with some filters.
 
 ### Syntax
-
 blastm6_to_gff.py --file [FILE] --source [SOURCE] --bitscore [BITSCORE]
 
 ### Options
-
 | Options | Description |
 | --- | --- |
 | file | The file produced by blast with output format 6 (tabular). |
@@ -40,7 +43,6 @@ blastm6_to_gff.py --file [FILE] --source [SOURCE] --bitscore [BITSCORE]
 | bitscore | Bitscore obtained by blast. Used to add a level of filter to the result. If 0, all results will be maintained. |
 
 <!---TRANSFORM VULGAR TO TABLE-->
-
 ## vulgar_to_table.R
 This script takes the vulgar format from the exonerate analysis and transforms the vulgar syntax into a table of condensed results.
 
@@ -48,13 +50,11 @@ This script takes the vulgar format from the exonerate analysis and transforms t
 vulgar_to_table.R --file [FILE]
 
 ### Options
-
 | Options | Description |
 | --- | --- |
 | file | The filtered exonerate result file containing only the records with vulgar formats. |
 
 <!---TRANSFORM HMMR TBL FORMAT TO GFF-->
-
 ## hmmer_tbl_to_gff.py 
 This script transforms hmmer tbl format into a gff file.
 
@@ -62,13 +62,11 @@ This script transforms hmmer tbl format into a gff file.
 hmmer_tbl_to_gff.py --file [FILE]
 
 ### Options
-
 | Options | Description |
 | --- | --- |
 | file | The file produced by HMMER analysis, in tbl format. |
 
 <!---REDUCE REDUNDANCY FROM MATCHES IN THE SAME COORDINATES-->
-
 ## gff_disambiguation.R
 This script takes the filtered exonerate files (genes or exons) and perform a reduction of the overlaping sequences in order to reduce 
 ambiguity produced from matches located at the same coordinates. The result is one genomic range per overlapping individual ranges.
@@ -77,7 +75,6 @@ ambiguity produced from matches located at the same coordinates. The result is o
 gff_disambiguation.R --file [FILE]
 
 ### Options
-
 | Options | Description |
 | --- | --- |
 | file | The files resul |
@@ -94,7 +91,6 @@ pseudogenes. Every record is numbered in a unique fashion to give each segment a
 SCRIPTS/SUBSCRIPTS/predict_ighv_by_overlaps.R --query [FILE]  --subject [FILE]
 
 ### Options
-
 | Options | Description |
 | --- | --- |
 | query | The reduced gff file from filtered exon annotated records from EXONERATE |
@@ -111,7 +107,6 @@ in both the start and the end of the match, in order to try to make an artificia
 locate_nearby_rss.R -n [FILE] -t [FILE] -v [FILE] -r [INT] -m [STRING] 
 
 ### Options
-
 | Options | Description |
 | --- | --- |
 | n | The HMMER gff file |
@@ -130,7 +125,6 @@ in both 5' and 3' ends. Every genomic region comprising both ends that have less
 predict_ighd_by_rss.R -f [FILE] -t [FILE]
 
 ### Options
-
 | Options | Description |
 | --- | --- |
 | f | The HMMMER gff file produced with the 5' RSS database |
