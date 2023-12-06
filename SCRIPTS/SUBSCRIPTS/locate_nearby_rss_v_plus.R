@@ -105,48 +105,55 @@ gff_overlaps@ranges@width <- as.integer(gff_overlaps@ranges@width + detection_ra
 # Make overlaps in both strands
 overlaps <- GenomicRanges::findOverlaps(query = gff_nhmmer, subject = gff_overlaps)
 
-
-
 # Checkpoint for overlaps and make analysis in plus strand
-if (length(overlaps_plus) < 1) {
+if (length(overlaps) < 1) {
   print("No overlaps detected for plus strand")
 } else {
   # Copy original df of subject to make the selection
-  gff_overlaps_plus <- gff_overlaps_raw
-  gff_overlaps_plus <- gff_overlaps_plus[which(as.character(gff_overlaps_plus@strand) == "+")]
+  gff_overlaps <- gff_overlaps_raw
+  gff_overlaps <- gff_overlaps[which(as.character(gff_overlaps@strand) == "+")]
     
   # Make a loop to cycle trough all the located querys
-  for (i in seq_along(overlaps_plus)) {
+  for (i in seq_along(overlaps)) {
     # Select from and to using position index
-    j_query <- overlaps_plus@from[i]
-    j_subject <- overlaps_plus@to[i]
+    j_query <- overlaps@from[i]
+    j_subject <- overlaps@to[i]
       
     # Calculate RSS real begining for the record in nhhmer query
-    rss_real_begin <- hmm_tbl_plus[j_query, "ali_from"] + 1 - hmm_tbl_plus[j_query, "hmm_from"] 
+    rss_real_begin <- hmm_tbl[j_query, "ali_from"] + 1 - hmm_tbl[j_query, "hmm_from"] 
       
     # Replace RSS real begining at the start of RSS
-    gff_nhmmer_plus@ranges@start[j_query] <- as.integer(rss_real_begin)
+    gff_nhmmer@ranges@start[j_query] <- as.integer(rss_real_begin)
       
     # Calculate the real RSS end
     #rss_real_end <- rss_real_begin + hmm_tbl[j_query,"hmm_to"] + (39 - hmm_tbl[j_query,"hmm_to"]) - 1
     rss_real_end <- rss_real_begin + hmm_tbl[j_query, "modlen"] 
       
     # Replace width for gff_nhmmer
-    gff_nhmmer_plus@ranges@width[j_query] <- as.integer(rss_real_end - rss_real_begin) 
+    gff_nhmmer@ranges@width[j_query] <- as.integer(rss_real_end - rss_real_begin) 
       
     # Replace RSS real begining at the end of V segment
-    v_start <- gff_overlaps_plus[j_subject]@ranges@start
+    v_start <- gff_overlaps[j_subject]@ranges@start
       
     v_new_width <- abs(rss_real_begin - v_start)
       
-    gff_overlaps_plus[j_subject]@ranges@width <- as.integer(v_new_width)
+    gff_overlaps[j_subject]@ranges@width <- as.integer(v_new_width)
   }
 
   # Initialice column of metadata for RSS
-  gff_nhmmer_plus$ID <- NA
+  gff_nhmmer$ID <- NA
+
   # Fill metadata
-  if (length(gff_nhmmer_plus[overlaps_plus@from]) >= 1) gff_nhmmer_plus[overlaps_plus@from]$ID <- paste0("RSS_V-associated_", seq_along(gff_nhmmer_plus[overlaps_plus@from]))
-  if (length(gff_nhmmer_plus[which(is.na(gff_nhmmer_plus$ID))]) >= 1) gff_nhmmer_plus[which(is.na(gff_nhmmer_plus$ID))]$ID <- paste("RSS_V-non-associated_", seq_along(gff_nhmmer_plus[which(is.na(gff_nhmmer_plus$ID))]))
+  if (length(gff_nhmmer[overlaps@from]) >= 1) gff_nhmmer[overlaps@from]$ID <- paste0("RSS_V-associated_", seq_along(gff_nhmmer[overlaps@from]), "_plus")
+  if (length(gff_nhmmer[which(is.na(gff_nhmmer$ID))]) >= 1) gff_nhmmer[which(is.na(gff_nhmmer$ID))]$ID <- paste("RSS_V-non-associated_", seq_along(gff_nhmmer[which(is.na(gff_nhmmer$ID))]), "_plus")
     
   # Select V segments with nearby RSS signals, with corrected coordinates from plus strand
-  final_plus <- c(gff_overlaps_plus[overlaps_plus@to], gff_nhmmer_plus[overlaps_plus@from])
+  #final_plus <- c(gff_overlaps[overlaps_plus@to], gff_nhmmer[overlaps_plus@from])
+  final_plus <- c(gff_overlaps, gff_nhmmer)
+}
+
+if (is.null(final_plus)) {
+  print("No corrections made for V segments, plus strand")
+} else {
+  rtracklayer::export.gff3(final_plus, "v_rss_plus_analysis.gff")
+}
