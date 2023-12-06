@@ -1,0 +1,13 @@
+#!/bin/bash
+
+./SCRIPTS/MASTER/second_master.sh \
+-i ./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_7bat_01_11_23.fna \
+-j ./SCRIPTS/SEQ_DB/RAW/IGHC_F_cDNA.fna \
+-k ./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_7bat_01_11_23.faa \
+-l ./SCRIPTS/SEQ_DB/RAW/IGHJ_7bat.fna \
+-w ./SCRIPTS/SEQ_DB/RAW/IGHV_RSS3_7bat.fna \
+-x ./SCRIPTS/SEQ_DB/RAW/IGHD_RSS3_7bat.fna \
+-y ./SCRIPTS/SEQ_DB/RAW/IGHD_RSS5_7bat.fna \
+-z ./SCRIPTS/SEQ_DB/RAW/IGHJ_RSS5_7bat.fna \
+-s DESMODUS_ROTUNDUS \
+-g GCA_022682495.1_HLdesRot8A_genomic.fna.gz

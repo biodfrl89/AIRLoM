@@ -1,0 +1,350 @@
+>Cluster 0
+0	39nt, >Arja_IGHV_010|IGHV_... *
+>Cluster 1
+0	39nt, >Arja_IGHV_038|IGHV_... *
+1	39nt, >Arja_IGHV_303|IGHV_... at +/97.44%
+>Cluster 2
+0	39nt, >Arja_IGHV_115|IGHV_... *
+1	39nt, >Arja_IGHV_347|IGHV_... at +/100.00%
+2	39nt, >Phdi_IGHV_88|IGHV_e... at +/97.44%
+>Cluster 3
+0	39nt, >Arja_IGHV_138|IGHV_... *
+>Cluster 4
+0	39nt, >Arja_IGHV_154|IGHV_... *
+1	39nt, >Arja_IGHV_265|IGHV_... at +/97.44%
+>Cluster 5
+0	39nt, >Arja_IGHV_167|IGHV_... *
+1	39nt, >Dero_IGHV_007|IGHV_... at +/97.44%
+2	39nt, >Dero_IGHV_025|IGHV_... at +/97.44%
+3	39nt, >Dero_IGHV_038|IGHV_... at +/97.44%
+4	39nt, >Dero_IGHV_039|IGHV_... at +/97.44%
+5	39nt, >Dero_IGHV_057|IGHV_... at +/97.44%
+6	39nt, >Dero_IGHV_079|IGHV_... at +/97.44%
+7	39nt, >Dero_IGHV_098|IGHV_... at +/97.44%
+8	39nt, >Dero_IGHV_099|IGHV_... at +/97.44%
+9	39nt, >Dero_IGHV_100|IGHV_... at +/97.44%
+10	39nt, >Momo_IGHV_007|IGHV_... at +/97.44%
+11	39nt, >Momo_IGHV_009|IGHV_... at +/97.44%
+12	39nt, >Momo_IGHV_010|IGHV_... at +/97.44%
+13	39nt, >Momo_IGHV_013|IGHV_... at +/97.44%
+14	39nt, >Phdi_IGHV_059|IGHV_... at +/97.44%
+15	39nt, >Phdi_IGHV_089|IGHV_... at +/97.44%
+16	39nt, >Phdi_IGHV_100|IGHV_... at +/97.44%
+17	39nt, >Phdi_IGHV_102|IGHV_... at +/97.44%
+18	39nt, >Phdi_IGHV_191|IGHV_... at +/97.44%
+19	39nt, >Phdi_IGHV_237|IGHV_... at +/97.44%
+20	39nt, >Phdi_IGHV_254|IGHV_... at +/97.44%
+21	39nt, >Piku_IGHVa_003|IGHV... at +/97.44%
+22	39nt, >Piku_IGHVb_053|IGHV... at +/100.00%
+23	39nt, >Pipi_IGHVa_009|IGHV... at +/97.44%
+24	39nt, >Pipi_IGHVa_020|IGHV... at +/97.44%
+25	39nt, >Pipi_IGHVb_094|IGHV... at +/97.44%
+26	39nt, >Pipi_IGHVb_104|IGHV... at +/97.44%
+27	39nt, >Pipi_IGHVb_108|IGHV... at +/97.44%
+28	39nt, >Pipi_IGHVb_120|IGHV... at +/97.44%
+29	39nt, >Pipi_IGHVb_124|IGHV... at +/97.44%
+30	39nt, >Pipi_IGHVb_129|IGHV... at +/97.44%
+31	39nt, >Pipi_IGHVb_137|IGHV... at +/97.44%
+32	39nt, >Pipi_IGHVb_149|IGHV... at +/97.44%
+33	39nt, >Pipi_IGHVb_169|IGHV... at +/97.44%
+>Cluster 6
+0	39nt, >Arja_IGHV_236|IGHV_... *
+>Cluster 7
+0	39nt, >Arja_IGHV_397|IGHV_... *
+1	39nt, >Pipi_IGHVb_095|IGHV... at +/97.44%
+>Cluster 8
+0	39nt, >Dero_IGHV_008|IGHV_... *
+1	39nt, >Pipi_IGHVa_011|IGHV... at +/97.44%
+2	39nt, >Pipi_IGHVb_112|IGHV... at +/97.44%
+3	39nt, >Pipi_IGHVb_118|IGHV... at +/97.44%
+4	39nt, >Pipi_IGHVb_128|IGHV... at +/100.00%
+>Cluster 9
+0	39nt, >Dero_IGHV_013|IGHV_... *
+1	39nt, >Dero_IGHV_018|IGHV_... at +/97.44%
+2	39nt, >Dero_IGHV_024|IGHV_... at +/100.00%
+>Cluster 10
+0	39nt, >Dero_IGHV_020|IGHV_... *
+>Cluster 11
+0	39nt, >Dero_IGHV_043|IGHV_... *
+1	39nt, >Dero_IGHV_055|IGHV_... at +/100.00%
+>Cluster 12
+0	39nt, >Dero_IGHV_045|IGHV_... *
+1	39nt, >Dero_IGHV_053|IGHV_... at +/100.00%
+2	39nt, >Dero_IGHV_069|IGHV_... at +/100.00%
+3	39nt, >Dero_IGHV_077|IGHV_... at +/100.00%
+4	39nt, >Pipi_IGHVa_070|IGHV... at +/97.44%
+>Cluster 13
+0	39nt, >Dero_IGHV_047|IGHV_... *
+1	38nt, >Pipi_IGHVb_139|IGHV... at +/97.37%
+>Cluster 14
+0	39nt, >Dero_IGHV_051|IGHV_... *
+>Cluster 15
+0	39nt, >Dero_IGHV_060|IGHV_... *
+>Cluster 16
+0	39nt, >Dero_IGHV_071|IGHV_... *
+1	39nt, >Phdi_IGHV_269|IGHV_... at +/97.44%
+>Cluster 17
+0	39nt, >Dero_IGHV_075|IGHV_... *
+1	39nt, >Pipi_IGHVb_098|IGHV... at +/97.44%
+>Cluster 18
+0	39nt, >Dero_IGHV_085|IGHV_... *
+>Cluster 19
+0	39nt, >Dero_IGHV_092|IGHV_... *
+1	39nt, >Dero_IGHV_109|IGHV_... at +/100.00%
+>Cluster 20
+0	39nt, >Dero_IGHV_093|IGHV_... *
+>Cluster 21
+0	39nt, >Dero_IGHV_095|IGHV_... *
+>Cluster 22
+0	39nt, >Dero_IGHV_103|IGHV_... *
+>Cluster 23
+0	39nt, >Momo_IGHV_008|IGHV_... *
+>Cluster 24
+0	39nt, >Momo_IGHV_011|IGHV_... *
+1	39nt, >Momo_IGHV_021|IGHV_... at +/100.00%
+>Cluster 25
+0	39nt, >Phdi_IGHV_009|IGHV_... *
+>Cluster 26
+0	39nt, >Phdi_IGHV_017|IGHV_... *
+>Cluster 27
+0	39nt, >Phdi_IGHV_039|IGHV_... *
+>Cluster 28
+0	39nt, >Phdi_IGHV_046|IGHV_... *
+1	39nt, >Pipi_IGHVb_160|IGHV... at +/97.44%
+>Cluster 29
+0	39nt, >Phdi_IGHV_067|IGHV_... *
+1	39nt, >Phdi_IGHV_096|IGHV_... at +/97.44%
+>Cluster 30
+0	39nt, >Phdi_IGHV_071|IGHV_... *
+1	39nt, >Phdi_IGHV_093|IGHV_... at +/97.44%
+2	39nt, >Phdi_IGHV_264|IGHV_... at +/97.44%
+>Cluster 31
+0	39nt, >Phdi_IGHV_113|IGHV_... *
+>Cluster 32
+0	39nt, >Phdi_IGHV_122|IGHV_... *
+1	39nt, >Piku_IGHVb_019|IGHV... at +/97.44%
+2	39nt, >Pipi_IGHVa_093|IGHV... at +/97.44%
+>Cluster 33
+0	39nt, >Phdi_IGHV_150|IGHV_... *
+1	39nt, >Phdi_IGHV_171|IGHV_... at +/100.00%
+2	39nt, >Phdi_IGHV_201|IGHV_... at +/100.00%
+>Cluster 34
+0	39nt, >Phdi_IGHV_187|IGHV_... *
+>Cluster 35
+0	39nt, >Phdi_IGHV_213|IGHV_... *
+>Cluster 36
+0	39nt, >Phdi_IGHV_232|IGHV_... *
+1	39nt, >Phdi_IGHV_242|IGHV_... at +/100.00%
+>Cluster 37
+0	39nt, >Phdi_IGHV_239|IGHV_... *
+>Cluster 38
+0	39nt, >Phdi_IGHV_259|IGHV_... *
+>Cluster 39
+0	39nt, >Piku_IGHVa_004|IGHV... *
+>Cluster 40
+0	39nt, >Piku_IGHVa_007|IGHV... *
+>Cluster 41
+0	39nt, >Piku_IGHVa_013|IGHV... *
+>Cluster 42
+0	39nt, >Piku_IGHVb_041|IGHV... *
+>Cluster 43
+0	39nt, >Piku_IGHVb_050|IGHV... *
+>Cluster 44
+0	39nt, >Pipi_IGHVa_016|IGHV... *
+1	39nt, >Pipi_IGHVb_099|IGHV... at +/97.44%
+>Cluster 45
+0	39nt, >Pipi_IGHVa_025|IGHV... *
+>Cluster 46
+0	39nt, >Pipi_IGHVa_034|IGHV... *
+1	39nt, >Pipi_IGHVa_038|IGHV... at +/97.44%
+>Cluster 47
+0	39nt, >Pipi_IGHVa_035|IGHV... *
+>Cluster 48
+0	39nt, >Pipi_IGHVa_037|IGHV... *
+>Cluster 49
+0	39nt, >Pipi_IGHVa_039|IGHV... *
+>Cluster 50
+0	39nt, >Pipi_IGHVa_040|IGHV... *
+>Cluster 51
+0	39nt, >Pipi_IGHVa_055|IGHV... *
+>Cluster 52
+0	39nt, >Pipi_IGHVa_058|IGHV... *
+>Cluster 53
+0	39nt, >Pipi_IGHVa_075|IGHV... *
+>Cluster 54
+0	39nt, >Pipi_IGHVa_076|IGHV... *
+>Cluster 55
+0	39nt, >Pipi_IGHVa_085|IGHV... *
+>Cluster 56
+0	39nt, >Pipi_IGHVb_100|IGHV... *
+>Cluster 57
+0	39nt, >Pipi_IGHVb_103|IGHV... *
+1	39nt, >Pipi_IGHVb_114|IGHV... at +/100.00%
+>Cluster 58
+0	39nt, >Pipi_IGHVb_107|IGHV... *
+>Cluster 59
+0	39nt, >Pipi_IGHVb_110|IGHV... *
+>Cluster 60
+0	39nt, >Pipi_IGHVb_119|IGHV... *
+>Cluster 61
+0	39nt, >Pipi_IGHVb_122|IGHV... *
+>Cluster 62
+0	39nt, >Pipi_IGHVb_150|IGHV... *
+1	39nt, >Pipi_IGHVb_154|IGHV... at +/100.00%
+>Cluster 63
+0	39nt, >Pipi_IGHVb_152|IGHV... *
+>Cluster 64
+0	39nt, >Pipi_IGHVb_161|IGHV... *
+>Cluster 65
+0	39nt, >Pipi_IGHVb_164|IGHV... *
+>Cluster 66
+0	39nt, >Pipi_IGHVb_166|IGHV... *
+>Cluster 67
+0	39nt, >Pipi_IGHVb_173|IGHV... *
+>Cluster 68
+0	39nt, >Pipi_IGHVb_174|IGHV... *
+>Cluster 69
+0	39nt, >Pipi_IGHVb_133|IGHV... *
+>Cluster 70
+0	39nt, >IGHV1-69.1|3'RSS|MW... *
+1	39nt, >IGHV3-74.1|3'RSS|MW... at +/100.00%
+2	39nt, >IGHV3-74.2|3'RSS|MW... at +/100.00%
+3	39nt, >IGHV4-30.1|3'RSS|MW... at +/97.44%
+4	39nt, >IGHV3-21|3'RSS|MW80... at +/100.00%
+5	39nt, >IGHV3-71.1|3'RSS|MW... at +/100.00%
+6	39nt, >IGHV3-74.3|3'RSS|MW... at +/97.44%
+7	39nt, >IGHV3-7.1|3'RSS|MW8... at +/97.44%
+8	39nt, >IGHV3-23.2|3'RSS|MW... at +/97.44%
+9	39nt, >IGHV3-33.1|3'RSS|MW... at +/97.44%
+10	39nt, >IGHV1-69.3|3'RSS|MW... at +/100.00%
+11	39nt, >IGHV3-71.2|3'RSS|MW... at +/100.00%
+12	39nt, >IGHV3-48.1|3'RSS|MW... at +/97.44%
+13	39nt, >IGHV4-30.2|3'RSS|MW... at +/97.44%
+14	39nt, >IGHV3-74.5|3'RSS|MW... at +/97.44%
+15	39nt, >IGHV4-39.11|3'RSS|M... at +/97.44%
+16	39nt, >IGHV3-23.4|3'RSS|MW... at +/97.44%
+17	39nt, >IGHV3-48.3|3'RSS|MW... at +/97.44%
+18	39nt, >IGHV3-48.4|3'RSS|MW... at +/97.44%
+19	39nt, >IGHV3-23.5|3'RSS|MW... at +/97.44%
+20	39nt, >IGHV3-33.2|3'RSS|MW... at +/97.44%
+21	39nt, >IGHV3-33.3|3'RSS|MW... at +/97.44%
+22	39nt, >IGHV3-48.3-2|3'RSS|... at +/100.00%
+>Cluster 71
+0	39nt, >IGHV4-59.1|3'RSS|MW... *
+>Cluster 72
+0	39nt, >IGHV1-69.2|3'RSS|MW... *
+1	39nt, >IGHV1-2.3|3'RSS|MW8... at +/100.00%
+>Cluster 73
+0	39nt, >IGHV4-59.2|3'RSS|MW... *
+1	39nt, >IGHV4-59.4|3'RSS|MW... at +/97.44%
+2	39nt, >IGHV1-8.2|3'RSS|MW8... at +/97.44%
+>Cluster 74
+0	39nt, >IGHV4-59.3|3'RSS|MW... *
+1	39nt, >IGHV4-59.7|3'RSS|MW... at +/100.00%
+>Cluster 75
+0	39nt, >IGHV4-39.4|3'RSS|MW... *
+1	39nt, >IGHV4-30.3|3'RSS|MW... at +/97.44%
+>Cluster 76
+0	39nt, >IGHV4-59.6|3'RSS|MW... *
+>Cluster 77
+0	39nt, >IGHV3-48.2|3'RSS|MW... *
+>Cluster 78
+0	39nt, >IGHV4-38|3'RSS|MW80... *
+>Cluster 79
+0	39nt, >IGHV1-8.1|3'RSS|MW8... *
+1	39nt, >IGHV7-4|3'RSS|MW800... at +/100.00%
+2	39nt, >IGHV1-8.3|3'RSS|MW8... at +/100.00%
+3	39nt, >IGHV1-8.4|3'RSS|MW8... at +/97.44%
+4	39nt, >IGHV1-2.2|3'RSS|MW8... at +/97.44%
+>Cluster 80
+0	39nt, >IGHV1-8.4-2|3'RSS|M... *
+>Cluster 81
+0	39nt, >Arja_IGHV_380|IGHV_... *
+1	39nt, >Arja_IGHV_405|IGHV_... at +/97.44%
+>Cluster 82
+0	39nt, >Phdi_IGHV_166|IGHV_... *
+1	39nt, >Phdi_IGHV_225|IGHV_... at +/100.00%
+2	39nt, >Phdi_IGHV_227|IGHV_... at +/100.00%
+>Cluster 83
+0	39nt, >Arja_IGHV_212|IGHV_... *
+>Cluster 84
+0	39nt, >Arja_IGHV_442|IGHV_... *
+>Cluster 85
+0	39nt, >Dero_IGHV_081|IGHV_... *
+>Cluster 86
+0	39nt, >Phdi_IGHV_183|IGHV_... *
+>Cluster 87
+0	39nt, >Arja_IGHV_242|IGHV_... *
+>Cluster 88
+0	39nt, >Dero_IGHV_034|IGHV_... *
+>Cluster 89
+0	39nt, >Phdi_IGHV_248|IGHV_... *
+>Cluster 90
+0	39nt, >Phdi_IGHV_132|IGHV_... *
+1	39nt, >Phdi_IGHV_280|IGHV_... at +/97.44%
+>Cluster 91
+0	39nt, >Phdi_IGHV_163|IGHV_... *
+>Cluster 92
+0	39nt, >Phdi_IGHV_117|IGHV_... *
+>Cluster 93
+0	39nt, >Phdi_IGHV_141|IGHV_... *
+>Cluster 94
+0	39nt, >Phdi_IGHV_208|IGHV_... *
+>Cluster 95
+0	39nt, >Arja_IGHV_078|IGHV_... *
+>Cluster 96
+0	39nt, >Dero_IGHV_010|IGHV_... *
+>Cluster 97
+0	39nt, >Phdi_IGHV_025|IGHV_... *
+>Cluster 98
+0	39nt, >Pipi_IGHVb_175|IGHV... *
+>Cluster 99
+0	39nt, >Piku_IGHVb_021|IGHV... *
+1	39nt, >Pipi_IGHVa_091|IGHV... at +/100.00%
+>Cluster 100
+0	39nt, >Pipi_IGHVa_030|IGHV... *
+1	39nt, >Pipi_IGHVa_036|IGHV... at +/97.44%
+>Cluster 101
+0	39nt, >Arja_IGHV_156|IGHV_... *
+>Cluster 102
+0	39nt, >Arja_IGHV_399|IGHV_... *
+>Cluster 103
+0	39nt, >Phdi_IGHV_143|IGHV_... *
+1	39nt, >Phdi_IGHV_153|IGHV_... at +/100.00%
+>Cluster 104
+0	39nt, >Pipi_IGHVa_017|IGHV... *
+>Cluster 105
+0	39nt, >Pipi_IGHVb_157|IGHV... *
+>Cluster 106
+0	39nt, >Arja_IGHV_198|IGHV_... *
+1	39nt, >Dero_IGHV_028|IGHV_... at +/97.44%
+>Cluster 107
+0	39nt, >IGHV4-38.3|3'RSS|MW... *
+>Cluster 108
+0	39nt, >Pipi_IGHVa_048|IGHV... *
+>Cluster 109
+0	39nt, >Pipi_IGHVa_069|IGHV... *
+>Cluster 110
+0	39nt, >Phdi_IGHV_275|IGHV_... *
+>Cluster 111
+0	39nt, >Phdi_IGHV_277|IGHV_... *
+>Cluster 112
+0	39nt, >Arja_IGHV_130|IGHV_... *
+>Cluster 113
+0	39nt, >IGHV6-1.2|3'RSS|MW8... *
+>Cluster 114
+0	39nt, >Pipi_IGHVb_144|IGHV... *
+>Cluster 115
+0	39nt, >Phdi_IGHV_137|IGHV_... *
+>Cluster 116
+0	39nt, >Phdi_IGHV_182|IGHV_... *
+>Cluster 117
+0	39nt, >Piku_IGHVa_002|IGHV... *
+>Cluster 118
+0	39nt, >Phdi_IGHV_146|IGHV_... *
+>Cluster 119
+0	39nt, >Pipi_IGHVb_097|IGHV... *
+>Cluster 120
+0	39nt, >IGHV4-61|3'RSS|MW80... *
+>Cluster 121
+0	39nt, >IGHV4-38.2|3'RSS|MW... *
