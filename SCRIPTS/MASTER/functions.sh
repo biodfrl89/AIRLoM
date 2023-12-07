@@ -544,7 +544,7 @@ correct_j_plus () {
     -n ./RESULTS/$SPECIE/HMMER/RSS_IGHJ/nhmmer_RSS_IGHJ_${SHORT_GS}.gff \
     -t ./RESULTS/$SPECIE/HMMER/RSS_IGHJ/nhmmer_RSS_IGHJ.tbl \
     -v ./RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHJ_cDNA_vs_${SHORT_GS}_plus_genes.gff \
-    -r 30 
+    -r 30 >/dev/null 2>&1
 
     test -f "j_rss_plus_analysis.gff" && mv j_rss_plus_analysis.gff ./RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff
 }
@@ -555,7 +555,7 @@ correct_j_minus () {
     -n ./RESULTS/$SPECIE/HMMER/RSS_IGHJ/nhmmer_RSS_IGHJ_${SHORT_GS}.gff \
     -t ./RESULTS/$SPECIE/HMMER/RSS_IGHJ/nhmmer_RSS_IGHJ.tbl \
     -v ./RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHJ_cDNA_vs_${SHORT_GS}_minus_genes.gff \
-    -r 30 
+    -r 30 >/dev/null 2>&1
 
     test -f "j_rss_minus_analysis.gff" && mv j_rss_minus_analysis.gff ./RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff
 }
@@ -568,8 +568,20 @@ correct_v_plus () {
     -t ./RESULTS/$SPECIE/HMMER/RSS_IGHV/nhmmer_RSS_IGHV.tbl \
     -v ./RESULTS/$SPECIE/OVERLAP/overlap_gene_prediction_IGHV_vs_${SHORT_GS}_plus.gff \
     -r 30 
+    #>/dev/null 2>&1
 
     test -f "v_rss_plus_analysis.gff" && mv v_rss_plus_analysis.gff ./RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff
 }
 
+correct_v_minus () {
+    printf "### Making overlap search between V segments and V RSS, and correct joining coordinates. Plus strand.\n"
+    Rscript ./SCRIPTS/SUBSCRIPTS/locate_nearby_rss_v_minus.R \
+    -n ./RESULTS/$SPECIE/HMMER/RSS_IGHV/nhmmer_RSS_IGHV_${SHORT_GS}.gff \
+    -t ./RESULTS/$SPECIE/HMMER/RSS_IGHV/nhmmer_RSS_IGHV.tbl \
+    -v ./RESULTS/$SPECIE/OVERLAP/overlap_gene_prediction_IGHV_vs_${SHORT_GS}_minus.gff \
+    -r 30 
+    #>/dev/null 2>&1
+
+    test -f "v_rss_minus_analysis.gff" && mv v_rss_minus_analysis.gff ./RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff
+}
 
