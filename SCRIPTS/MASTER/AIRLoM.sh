@@ -1,10 +1,20 @@
 #!/bin/bash
 
+cat <<-'PRESENTATION'
+
+######################################################
+#                                                    #
+#   AIRLoM (Adaptive Immune-Receptor Locus Mapper)   #
+#                                                    #
+######################################################
+
+PRESENTATION
+
 # Get start date in seconds
 start=$SECONDS
 
 # Load functions
-source ./SCRIPTS/MASTER/fun.sh
+source ./SCRIPTS/MASTER/functions.sh
 
 #Si no hay argumentos, mostrar error y la ayuda
 [ $# -eq 0 ] && echo -e "\nNo arguments given.\n" && usage
@@ -30,16 +40,16 @@ do
         esac
 done
 
-# ----- CHECK ARGUMENTS -----
+## ----- CHECK ARGUMENTS -----
 check_arguments
 
 # ----- RUN CD-HIT -----
 #run_cdhit 
 
-# ----- REASSING VARIABLES -----
+## ----- REASSING VARIABLES -----
 reassign_vars
 
-# ----- FORMAT NAMES -----
+## ----- FORMAT NAMES -----
 format_name 
 
 # ----- MOVE GENOME AND MAKE BLAST DATABASE -----
@@ -64,9 +74,11 @@ format_name
 # ----- EXTRACT SCAFFOLDS SEQUENCE-----
 #extract_scaffolds_seq 
 
+
+# ----- EXONERATE -----
 # Make exonerate directory
 #mkdir ./RESULTS/$SPECIE/EXONERATE 
-# ----- EXONERATE -----
+
 #exonerate_v_cdna
 #exonerate_v_aa
 #exonerate_j_cdna
@@ -106,11 +118,12 @@ format_name
 #mkdir -p ./RESULTS/$SPECIE/J_RSS_CORRECTED
 #correct_j_plus
 #correct_j_minus
-#correct_v_plus
 
 # ----- CORRECT V COORDINATES -----
 mkdir -p ./RESULTS/$SPECIE/V_RSS_CORRECTED
-correct_v_plus
+correct_v_minus
+#correct_v_plus
+
 
 # ----- FINAL MESSAGE -----
 end=$SECONDS
