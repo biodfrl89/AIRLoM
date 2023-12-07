@@ -102,6 +102,15 @@ detection_range <- opt$range
 gff_overlaps@ranges@start <- as.integer(gff_overlaps@ranges@start - detection_range)
 gff_overlaps@ranges@width <- as.integer(gff_overlaps@ranges@width + detection_range * 2)
 
+# Separate plus and minus from overlap gene prediction file
+gff_overlaps <- gff_overlaps[which(as.character(gff_overlaps@strand) == "+")]
+
+# Separate plus and minus from nhmmer gff
+gff_nhmmer <- gff_nhmmer[which(as.character(gff_nhmmer@strand) == "+")]
+
+# Separate plus and minus from nhmmer tbl
+hmm_tbl <- hmm_tbl[which(hmm_tbl$strand == "+"),]
+
 # Make overlaps in both strands
 overlaps <- GenomicRanges::findOverlaps(query = gff_nhmmer, subject = gff_overlaps)
 
@@ -145,12 +154,13 @@ if (length(overlaps) < 1) {
 
   # Fill metadata
   if (length(gff_nhmmer[overlaps@from]) >= 1) gff_nhmmer[overlaps@from]$ID <- paste0("RSS_V-associated_", seq_along(gff_nhmmer[overlaps@from]), "_plus")
-  if (length(gff_nhmmer[which(is.na(gff_nhmmer$ID))]) >= 1) gff_nhmmer[which(is.na(gff_nhmmer$ID))]$ID <- paste("RSS_V-non-associated_", seq_along(gff_nhmmer[which(is.na(gff_nhmmer$ID))]), "_plus")
+  if (length(gff_nhmmer[which(is.na(gff_nhmmer$ID))]) >= 1) gff_nhmmer[which(is.na(gff_nhmmer$ID))]$ID <- paste0("RSS_V-non-associated_", seq_along(gff_nhmmer[which(is.na(gff_nhmmer$ID))]), "_plus")
     
   # Select V segments with nearby RSS signals, with corrected coordinates from plus strand
   #final_plus <- c(gff_overlaps[overlaps_plus@to], gff_nhmmer[overlaps_plus@from])
   final_plus <- c(gff_overlaps, gff_nhmmer)
 }
+
 
 if (is.null(final_plus)) {
   print("No corrections made for V segments, plus strand")
