@@ -53,77 +53,83 @@ reassign_vars
 format_name 
 
 # ----- MOVE GENOME AND MAKE BLAST DATABASE -----
-#move_genome
-#make_blast_database
+move_genome
+make_blast_database
 
 # ----- BLAST -----
-#blast_v_cdna 
-#blast_v_aa 
-#blast_j_cdna 
-#blast_c_cdna
+blast_v_cdna 
+blast_v_aa 
+blast_j_cdna 
+blast_c_cdna
 
 # ----- REFORMAT M6 TO GFF -----
-#reformat_blast_v_cdna
-#reformat_blast_v_aa
-#reformat_blast_j_cdna
-#reformat_blast_c_cdna
+reformat_blast_v_cdna
+reformat_blast_v_aa
+reformat_blast_j_cdna
+reformat_blast_c_cdna
 
 # ----- EXTRACT SCAFFOLDS NAMES-----
-#extract_scaffolds
+extract_scaffolds
 
 # ----- EXTRACT SCAFFOLDS SEQUENCE-----
-#extract_scaffolds_seq 
-
+extract_scaffolds_seq 
 
 # ----- EXONERATE -----
 # Make exonerate directory
-#mkdir ./RESULTS/$SPECIE/EXONERATE 
+mkdir ./RESULTS/$SPECIE/EXONERATE 
 
-#exonerate_v_cdna
-#exonerate_v_aa
-#exonerate_j_cdna
-#exonerate_c_cdna
+exonerate_v_cdna
+exonerate_v_aa
+exonerate_j_cdna
+exonerate_c_cdna
 
 # ----- EXTRACT VULGAR FROM EXONERATE -----
-#extract_exonerate_vulgar
+extract_exonerate_vulgar
 
 # ----- EXTRACT GFF FROM EXONERATE -----
-#extract_exonerate_gff
+extract_exonerate_gff
 
 # ----- CONVERT VULGAR TO TABLE -----
-#vulgar_to_table
+vulgar_to_table
 
 # Remove raw exonerate
-#rm ./RESULTS/$SPECIE/EXONERATE/exonerate*$SHORT_GS
+rm ./RESULTS/$SPECIE/EXONERATE/exonerate*$SHORT_GS
 
 # ----- HMMER -----
-#run_hmmer
+run_hmmer
 
 # Make exonerate filtered directory
-#mkdir ./RESULTS/$SPECIE/EXONERATE_FILTERED
+mkdir ./RESULTS/$SPECIE/EXONERATE_FILTERED
 
 # ----- FILTRAE EXONERATE TO SEPARATE EXONS AND GENES, PLUS AND MINUS -----
-#exonerate_filtration
+exonerate_filtration
 
 # ----- REDUCE EXONERATE FILTERED FILES -----
-#mkdir ./RESULTS/$SPECIE/REDUCTION
-#exonerate_reduction
+mkdir ./RESULTS/$SPECIE/REDUCTION
+exonerate_reduction
 
 # ----- OVERLAP ANALYSIS -----
-#mkdir ./RESULTS/$SPECIE/OVERLAP
-#exonerate_overlap_v_cdna
-#exonerate_overlap_v_aa
+mkdir ./RESULTS/$SPECIE/OVERLAP
+exonerate_overlap_v_cdna
+exonerate_overlap_v_aa
 
 # ----- CORRECT J COORDINATES -----
-#mkdir -p ./RESULTS/$SPECIE/J_RSS_CORRECTED
-#correct_j_plus
-#correct_j_minus
+mkdir -p ./RESULTS/$SPECIE/J_RSS_CORRECTED
+correct_j_plus
+correct_j_minus
 
 # ----- CORRECT V COORDINATES -----
 mkdir -p ./RESULTS/$SPECIE/V_RSS_CORRECTED
 correct_v_minus
-#correct_v_plus
+correct_v_plus
 
+# ----- DETECT D SEGMENTS -----
+mkdir -p ./RESULTS/$SPECIE/D_SEGMENTS/
+detect_d
+
+# ----- MAKE RESULTS DIRECTORY -----
+mkdir -p ./RESULTS/$SPECIE/GFF/
+merge_gffs
 
 # ----- FINAL MESSAGE -----
 end=$SECONDS
