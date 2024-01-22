@@ -613,5 +613,4 @@ merge_gffs () {
     RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff | \
 
     grep -v "#" > RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.gff
-
 }
