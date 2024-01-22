@@ -130,7 +130,7 @@ if (length(overlaps) < 1) {
     # Select from and to using position index
     j_query <- overlaps@from[i]
     j_subject <- overlaps@to[i]
-      
+    
     # Calculate RSS real begining for the record in nhhmer query
     rss_real_begin <- hmm_tbl[j_query, "ali_from"] + 1 - hmm_tbl[j_query, "hmm_from"] 
     
@@ -138,22 +138,26 @@ if (length(overlaps) < 1) {
     gff_nhmmer@ranges@start[j_query] <- as.integer(rss_real_begin)
     
     # Calculate the real RSS end
-    rss_real_end <- rss_real_begin + hmm_tbl[j_query, "modlen"] 
+    #rss_real_end <- rss_real_begin + hmm_tbl[j_query,"hmm_to"] + (39 - hmm_tbl[j_query,"hmm_to"]) - 1
+    rss_real_end <- rss_real_begin - hmm_tbl[j_query, "modlen"]  + 1
+    
+    # CHANGE AGAIN COVER THE DISTANCE
+    gff_nhmmer@ranges@start[j_query] <- as.integer(rss_real_end)
     
     # Replace width for gff_nhmmer
-    gff_nhmmer@ranges@width[j_query] <- as.integer(rss_real_end - rss_real_begin) 
+    gff_nhmmer@ranges@width[j_query] <- as.integer(rss_real_begin - rss_real_end) 
     
     # Calculate the number of positions of displacement
-    diff_overlap_rss_end <- abs(gff_overlaps[j_subject]@ranges@start - rss_real_end)
+    #diff_overlap_rss_end <- abs(gff_overlaps[j_subject]@ranges@start - rss_real_end)
     
     # Correct the start of V segment, one position ahead of the end of RSS
-    gff_overlaps[j_subject]@ranges@start <- as.integer(rss_real_end + 1)
+    gff_overlaps[j_subject]@ranges@start <- as.integer(rss_real_begin)
     
     # Calculate the new width, so the alignment of the V segment is not propagated
-    v_new_width <- gff_overlaps[j_subject]@ranges@width - diff_overlap_rss_end
+    v_new_width <- gff_overlaps[j_subject]@ranges@width #+ diff_overlap_rss_end
     
-    # Chande the new width
-    gff_overlaps[j_subject]@ranges@width <- as.integer(v_new_width)
+    # Change the new width
+    gff_overlaps[j_subject]@ranges@width <- as.integer(v_new_width - 1)
   }
 
   # Initialice column of metadata for RSS
