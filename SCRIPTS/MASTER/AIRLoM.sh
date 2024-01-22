@@ -19,6 +19,18 @@ source ./SCRIPTS/MASTER/functions.sh
 #Si no hay argumentos, mostrar error y la ayuda
 [ $# -eq 0 ] && echo -e "\nNo arguments given.\n" && usage
 
+cat <<-'TEST' >/dev/null 2>&1
+# Give default values to every fasta file to be used to create databases
+IGH_V_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_7bat_01_11_23.fna"
+IGH_C_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHC_F_cDNA.fna"
+IGH_V_AA="./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_7bat_01_11_23.faa"
+IGH_J_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHJ_7bat.fna"
+RSS_V="./SCRIPTS/SEQ_DB/RAW/IGHV_RSS3_7bat.fna"
+RSS_D3="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS3_7bat.fna"
+RSS_D5="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS5_7bat.fna"
+RSS_J="./SCRIPTS/SEQ_DB/RAW/IGHJ_RSS5_7bat.fna"
+TEST
+
 #OJO EN GETOPTS DEBEN ESTAR TAMBIEN LA ETIQUETA QUE RECIBIRA EL ARGUMENTO
 while getopts ":hs:g:a:m:i:j:k:l:w:x:y:z:" flag
 do
