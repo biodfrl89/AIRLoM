@@ -44,13 +44,15 @@ done
 check_arguments
 
 # ----- RUN CD-HIT -----
-#run_cdhit 
+run_cdhit 
 
 ## ----- REASSING VARIABLES -----
 reassign_vars
 
 ## ----- FORMAT NAMES -----
 format_name 
+
+#cat <<-'JUMP' >/dev/null 2>&1
 
 # ----- MOVE GENOME AND MAKE BLAST DATABASE -----
 move_genome
@@ -121,14 +123,13 @@ correct_j_minus
 # ----- CORRECT V COORDINATES -----
 mkdir -p ./RESULTS/$SPECIE/V_RSS_CORRECTED
 correct_v_minus
-correct_v_plus
+#correct_v_plus
 
 # ----- DETECT D SEGMENTS -----
 mkdir -p ./RESULTS/$SPECIE/D_SEGMENTS/
 detect_d
 
 # ----- MAKE RESULTS DIRECTORY -----
-mkdir -p ./RESULTS/$SPECIE/GFF/
 merge_gffs
 
 # ----- FINAL MESSAGE -----
@@ -136,3 +137,4 @@ end=$SECONDS
 runtime=$((end-start))
 printf "### ANALYSIS COMPLETED IN $runtime SECONDS\n"
 printf "### EXITING\n"
+
