@@ -148,7 +148,7 @@ format_name () {
 # Create specie directory with reference genome directory. Move genome to reference genome folder and locate inside.
 move_genome () {
     mkdir -p ./RESULTS/$SPECIE/REFERENCE_GENOME && \
-    cp *.gz ./RESULTS/$SPECIE/REFERENCE_GENOME/ && \
+    cp $GENOME ./RESULTS/$SPECIE/REFERENCE_GENOME/ && \
     cd ./RESULTS/$SPECIE/REFERENCE_GENOME/
 }
 
@@ -255,9 +255,12 @@ extract_scaffolds () {
     cut -f1 ./RESULTS/$SPECIE/BLAST/tblastn_IGHV_aa_vs_$SHORT_GS.gff | sort | uniq >./RESULTS/$SPECIE/BLAST/scaffolds_tblastn_IGHV_vs_$SHORT_GS
     cut -f1 ./RESULTS/$SPECIE/BLAST/tblastx_IGHJ_cDNA_vs_$SHORT_GS.gff | sort | uniq >./RESULTS/$SPECIE/BLAST/scaffolds_tblastx_IGHJ_cDNA_vs_$SHORT_GS
     cut -f1 ./RESULTS/$SPECIE/BLAST/tblastx_IGHC_cDNA_vs_$SHORT_GS.gff | sort | uniq >./RESULTS/$SPECIE/BLAST/scaffolds_tblastx_IGHC_cDNA_vs_$SHORT_GS
-    cat ./RESULTS/$SPECIE/BLAST/scaffolds_t* | sort | uniq -c | awk ' $1 >= 3 ' | tr -s ' ' | cut -d' ' -f3 >./RESULTS/$SPECIE/BLAST/scaffolds_to_extract
+    #cat ./RESULTS/$SPECIE/BLAST/scaffolds_t* | sort | uniq -c | awk ' $1 >= 3 ' | tr -s ' ' | cut -d' ' -f3 >./RESULTS/$SPECIE/BLAST/scaffolds_to_extract_count
+    cat ./RESULTS/$SPECIE/BLAST/scaffolds_t* | sort | uniq -c | tr -s ' ' | cut -d' ' -f3 >./RESULTS/$SPECIE/BLAST/scaffolds_to_extract
     rm ./RESULTS/$SPECIE/BLAST/scaffolds_tblast*
+
 }
+
 
 ############# EXTRACT SCAFFOLDS SEQUENCE #################
 extract_scaffolds_seq () {
@@ -571,7 +574,6 @@ detect_d () {
     mv RSS_D_IGH_D_segments.gff ./RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff
 }
 
-
 ############# CORRECT COORDINATES FOR V AND RSS #################
 correct_v_plus () {
     printf "### Making overlap search between V segments and V RSS, and correct joining coordinates. Plus strand.\n"
@@ -610,7 +612,10 @@ merge_gffs () {
     RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff \
     RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff \
     RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_genes.gff \
-    RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff | \
-
+    RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff \
+    RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_genes.gff \
+    RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_exons.gff \
+    RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_plus.gff \
+    RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_minus.gff | \
     grep -v "#" > RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.gff
 }

@@ -10,16 +10,15 @@ cat <<-'PRESENTATION'
 
 PRESENTATION
 
-# Get start date in seconds
+# Get start date in seconds.
 start=$SECONDS
 
-# Load functions
+# Load functions.
 source ./SCRIPTS/MASTER/functions.sh
 
-#Si no hay argumentos, mostrar error y la ayuda
+# If no argument is given, show error and help.
 [ $# -eq 0 ] && echo -e "\nNo arguments given.\n" && usage
 
-cat <<-'TEST' >/dev/null 2>&1
 # Give default values to every fasta file to be used to create databases
 IGH_V_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_7bat_01_11_23.fna"
 IGH_C_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHC_F_cDNA.fna"
@@ -29,9 +28,8 @@ RSS_V="./SCRIPTS/SEQ_DB/RAW/IGHV_RSS3_7bat.fna"
 RSS_D3="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS3_7bat.fna"
 RSS_D5="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS5_7bat.fna"
 RSS_J="./SCRIPTS/SEQ_DB/RAW/IGHJ_RSS5_7bat.fna"
-TEST
 
-#OJO EN GETOPTS DEBEN ESTAR TAMBIEN LA ETIQUETA QUE RECIBIRA EL ARGUMENTO
+#NOTE: OPTION IN GETOPTS MUST ALSO HAVE A FLAG TO CATCH THE ARGUMENT
 while getopts ":hs:g:a:m:i:j:k:l:w:x:y:z:" flag
 do
         case "${flag}" in
@@ -52,7 +50,7 @@ do
         esac
 done
 
-## ----- CHECK ARGUMENTS -----
+# ----- CHECK ARGUMENTS -----
 check_arguments
 
 # ----- RUN CD-HIT -----
@@ -132,14 +130,16 @@ mkdir -p ./RESULTS/$SPECIE/J_RSS_CORRECTED
 correct_j_plus
 correct_j_minus
 
-# ----- CORRECT V COORDINATES -----
-mkdir -p ./RESULTS/$SPECIE/V_RSS_CORRECTED
-correct_v_minus
-#correct_v_plus
-
 # ----- DETECT D SEGMENTS -----
 mkdir -p ./RESULTS/$SPECIE/D_SEGMENTS/
 detect_d
+
+#JUMP
+
+# ----- CORRECT V COORDINATES -----
+mkdir -p ./RESULTS/$SPECIE/V_RSS_CORRECTED
+correct_v_minus
+correct_v_plus
 
 # ----- MAKE RESULTS DIRECTORY -----
 merge_gffs
