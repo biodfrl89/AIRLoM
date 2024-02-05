@@ -605,17 +605,26 @@ merge_gffs () {
         mkdir RESULTS/$SPECIE/GFF
     fi
 
+    # Create empty final temp gff file
+    touch RESULTS/$SPECIE/GFF/temp.gff
+
     printf "### Merging results.\n"
-    cat RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff \
-    RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff \
-    RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff \
-    RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff \
-    RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff \
-    RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_genes.gff \
-    RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff \
-    RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_genes.gff \
-    RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_exons.gff \
-    RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_plus.gff \
-    RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_minus.gff | \
-    grep -v "#" > RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.gff
+
+    [[ -f RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_genes.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_genes.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_genes.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_genes.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_exons.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_exons.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_plus.gff ]] && cat RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_plus.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_minus.gff ]] && cat RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_minus.gff >>temp.gff
+
+    # Clean gff file and give final name
+    grep -v "#" temp.gff >RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.gff
+
+    # Remove temp
+    rm RESULTS/$SPECIE/GFF/temp.gff
 }
