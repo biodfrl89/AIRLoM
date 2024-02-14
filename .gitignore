@@ -1,2 +1,5 @@
 RESULTS/
 *.gz
+error
+salida
+job.sh
