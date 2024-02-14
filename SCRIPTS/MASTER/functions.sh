@@ -613,7 +613,7 @@ merge_gffs () {
     [[ -f RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff >>temp.gff
-    [[ -f RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSSq_plus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_genes.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_genes.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff >>temp.gff
@@ -627,4 +627,14 @@ merge_gffs () {
 
     # Remove temp
     rm RESULTS/$SPECIE/GFF/temp.gff
+}
+
+############# MAKE BED FROM FINAL BED #################
+gff_to_bed () {
+    printf "### Making BED file from final GFF\n"
+    Rscript ./SCRIPTS/SUBSCRIPTS/gff_to_bed.R \
+    -f ./RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.gff
+
+    echo 'track name="Bed_results" description="Bed anotation for manual inspection" visibility=2 itemRgb="On"' | cat - RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.bed >RESULTS/$SPECIE/GFF/final_bed_${SHORT_GS}.bed
+    rm RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.bed
 }

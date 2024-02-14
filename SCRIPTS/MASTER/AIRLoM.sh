@@ -53,16 +53,16 @@ done
 # ----- CHECK ARGUMENTS -----
 check_arguments
 
+## ----- FORMAT NAMES -----
+format_name 
+
+cat <<-'JUMP' >/dev/null 2>&1
+
 # ----- RUN CD-HIT -----
 run_cdhit 
 
 ## ----- REASSING VARIABLES -----
 reassign_vars
-
-## ----- FORMAT NAMES -----
-format_name 
-
-#cat <<-'JUMP' >/dev/null 2>&1
 
 # ----- MOVE GENOME AND MAKE BLAST DATABASE -----
 move_genome
@@ -143,6 +143,10 @@ correct_v_plus
 
 # ----- MAKE RESULTS DIRECTORY -----
 merge_gffs
+JUMP
+
+# ----- Make BED from final GFF -----
+gff_to_bed
 
 # ----- FINAL MESSAGE -----
 end=$SECONDS
