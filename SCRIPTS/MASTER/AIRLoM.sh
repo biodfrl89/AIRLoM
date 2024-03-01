@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Activate general conda
+source /usr/local/miniforge/etc/profile.d/conda.sh
+
+conda activate airlom
+
+# Main presentation
 cat <<-'PRESENTATION'
 
 ######################################################
@@ -56,7 +62,7 @@ check_arguments
 ## ----- FORMAT NAMES -----
 format_name 
 
-cat <<-'JUMP' >/dev/null 2>&1
+#cat <<-'JUMP' >/dev/null 2>&1
 
 # ----- RUN CD-HIT -----
 run_cdhit 
@@ -69,21 +75,29 @@ move_genome
 make_blast_database
 
 # ----- BLAST -----
-blast_v_cdna 
+blast_v_cdna
 blast_v_aa 
 blast_j_cdna 
 blast_c_cdna
 
+conda deactivate
+
 # ----- REFORMAT M6 TO GFF -----
+conda activate R
+
 reformat_blast_v_cdna
 reformat_blast_v_aa
 reformat_blast_j_cdna
 reformat_blast_c_cdna
 
+conda deactivate
+
 # ----- EXTRACT SCAFFOLDS NAMES-----
 extract_scaffolds
 
 # ----- EXTRACT SCAFFOLDS SEQUENCE-----
+conda activate airlom
+
 extract_scaffolds_seq 
 
 # ----- EXONERATE -----
@@ -102,12 +116,17 @@ extract_exonerate_vulgar
 extract_exonerate_gff
 
 # ----- CONVERT VULGAR TO TABLE -----
+conda deactivate
+conda activate R
 vulgar_to_table
+
 
 # Remove raw exonerate
 rm ./RESULTS/$SPECIE/EXONERATE/exonerate*$SHORT_GS
 
 # ----- HMMER -----
+conda deactivate
+conda activate airlom
 run_hmmer
 
 # Make exonerate filtered directory
@@ -116,8 +135,12 @@ mkdir ./RESULTS/$SPECIE/EXONERATE_FILTERED
 # ----- FILTRAE EXONERATE TO SEPARATE EXONS AND GENES, PLUS AND MINUS -----
 exonerate_filtration
 
+conda deactivate
+
 # ----- REDUCE EXONERATE FILTERED FILES -----
 mkdir ./RESULTS/$SPECIE/REDUCTION
+
+conda activate R
 exonerate_reduction
 
 # ----- OVERLAP ANALYSIS -----
@@ -134,8 +157,6 @@ correct_j_minus
 mkdir -p ./RESULTS/$SPECIE/D_SEGMENTS/
 detect_d
 
-#JUMP
-
 # ----- CORRECT V COORDINATES -----
 mkdir -p ./RESULTS/$SPECIE/V_RSS_CORRECTED
 correct_v_minus
@@ -143,7 +164,6 @@ correct_v_plus
 
 # ----- MAKE RESULTS DIRECTORY -----
 merge_gffs
-JUMP
 
 # ----- Make BED from final GFF -----
 gff_to_bed

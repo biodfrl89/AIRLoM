@@ -96,20 +96,20 @@ check_arguments () {
 
 run_cdhit () {
     printf "### Running CD-HIT to cluster raw database sequences redundancy\n"
-    conda run -n roary cd-hit-est -i $IGH_V_CDNA -o cdhit_IGHV_CDS.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
-    conda run -n roary cd-hit -i $IGH_V_AA -o cdhit_IGHV_CDS.faa -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
-    conda run -n roary cd-hit-est -i $IGH_J_CDNA -o cdhit_IGHJ.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
-    conda run -n roary cd-hit-est -i $IGH_C_CDNA -o cdhit_IGHC.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
-    conda run -n roary cd-hit-est -i $RSS_V -o cdhit_IGHV_RSS3.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
-    conda run -n roary cd-hit-est -i $RSS_D5 -o cdhit_IGHD_RSS5.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
-    conda run -n roary cd-hit-est -i $RSS_D3 -o cdhit_IGHD_RSS3.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
-    conda run -n roary cd-hit-est -i $RSS_J -o cdhit_IGHJ_RSS5.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit-est -i $IGH_V_CDNA -o cdhit_IGHV_CDS.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit -i $IGH_V_AA -o cdhit_IGHV_CDS.faa -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit-est -i $IGH_J_CDNA -o cdhit_IGHJ.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit-est -i $IGH_C_CDNA -o cdhit_IGHC.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit-est -i $RSS_V -o cdhit_IGHV_RSS3.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit-est -i $RSS_D5 -o cdhit_IGHD_RSS5.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit-est -i $RSS_D3 -o cdhit_IGHD_RSS3.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit-est -i $RSS_J -o cdhit_IGHJ_RSS5.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
 
     printf "### Running CLUSTAL alignment in RSS clustered sequences\n"
-    conda run -n roary clustalw2 -align -quiet -infile=cdhit_IGHV_RSS3.fna -OUTFILE=clustal_IGHV_RSS3.fna -OUTPUT=FASTA >/dev/null 2>&1
-    conda run -n roary clustalw2 -align -quiet -infile=cdhit_IGHD_RSS5.fna -OUTFILE=clustal_IGHD_RSS5.fna -OUTPUT=FASTA >/dev/null 2>&1
-    conda run -n roary clustalw2 -align -quiet -infile=cdhit_IGHD_RSS3.fna -OUTFILE=clustal_IGHD_RSS3.fna -OUTPUT=FASTA >/dev/null 2>&1
-    conda run -n roary clustalw2 -align -quiet -infile=cdhit_IGHJ_RSS5.fna -OUTFILE=clustal_IGHJ_RSS5.fna -OUTPUT=FASTA >/dev/null 2>&1
+    clustalw2 -align -quiet -infile=cdhit_IGHV_RSS3.fna -OUTFILE=clustal_IGHV_RSS3.fna -OUTPUT=FASTA >/dev/null 2>&1
+    clustalw2 -align -quiet -infile=cdhit_IGHD_RSS5.fna -OUTFILE=clustal_IGHD_RSS5.fna -OUTPUT=FASTA >/dev/null 2>&1
+    clustalw2 -align -quiet -infile=cdhit_IGHD_RSS3.fna -OUTFILE=clustal_IGHD_RSS3.fna -OUTPUT=FASTA >/dev/null 2>&1
+    clustalw2 -align -quiet -infile=cdhit_IGHJ_RSS5.fna -OUTFILE=clustal_IGHJ_RSS5.fna -OUTPUT=FASTA >/dev/null 2>&1
 
     printf "### Moving database files\n"
     rm cdhit*.dnd
@@ -173,7 +173,7 @@ make_blast_database () {
 blast_v_cdna () {
     # V region with cDNA fasta
     printf "### Running BLAST for V regions using cDNA\n"
-    conda run -n murcielagos tblastx \
+    tblastx \
     -query $IGH_V_CDNA \
     -db ./RESULTS/$SPECIE/BLAST/DB/BLAST_DB \
     -outfmt 6 \
@@ -186,7 +186,7 @@ blast_v_cdna () {
 blast_v_aa () {
     # V region with aa fasta
     printf "### Running BLAST for V regions using AA\n"
-    conda run -n murcielagos tblastn \
+    tblastn \
     -query $IGH_V_AA \
     -db ./RESULTS/$SPECIE/BLAST/DB/BLAST_DB \
     -outfmt 6 \
@@ -199,7 +199,7 @@ blast_v_aa () {
 blast_j_cdna () {
     # J region with cDNA fasta
     printf "### Running BLAST for J regions using cDNA\n"
-    conda run -n murcielagos tblastx \
+    tblastx \
     -query $IGH_J_CDNA \
     -db ./RESULTS/$SPECIE/BLAST/DB/BLAST_DB \
     -outfmt 6 \
@@ -212,7 +212,7 @@ blast_j_cdna () {
 blast_c_cdna () {
     # C region with cDNA fasta
     printf "### Running BLAST for C regions using cDNA\n"
-    conda run -n murcielagos tblastx \
+    tblastx \
     -query $IGH_C_CDNA \
     -db ./RESULTS/$SPECIE/BLAST/DB/BLAST_DB \
     -outfmt 6 \
@@ -226,6 +226,7 @@ blast_c_cdna () {
 
 reformat_blast_v_cdna () {
     printf "### Reformating blast m6 tables of IGHV_cDNA to gff\n"
+    #conda activate R
     Rscript ./SCRIPTS/SUBSCRIPTS/blast_m6_to_gff.R --file ./RESULTS/$SPECIE/BLAST/tblastx_IGHV_cDNA_vs_$SHORT_GS.m6 --source tblastx --bitscore 0
     rm ./RESULTS/$SPECIE/BLAST/tblastx_IGHV_cDNA_vs_$SHORT_GS.m6
 }
@@ -284,7 +285,7 @@ extract_scaffolds_seq () {
 ############# EXONERATE FUNCTIONS #################
 exonerate_v_cdna () {
     printf "### Running EXONERATE for V regions using cDNA\n"
-    conda run -n murcielagos exonerate \
+    exonerate \
     --cores 4 \
     --model est2genome \
     --showtargetgff TRUE \
@@ -301,7 +302,7 @@ exonerate_v_cdna () {
 
 exonerate_v_aa () {
     printf "### Running EXONERATE for V regions using AA \n"
-    conda run -n murcielagos exonerate \
+    exonerate \
     --cores 2 \
     --model protein2genome \
     --showtargetgff TRUE \
@@ -319,7 +320,7 @@ exonerate_v_aa () {
 exonerate_j_cdna () {
     printf "### Running EXONERATE for J regions using cDNA\n"
     # Add score after manual inspection
-    conda run -n murcielagos exonerate \
+    exonerate \
     --cores 4 \
     --model est2genome \
     --showtargetgff TRUE \
@@ -338,7 +339,7 @@ exonerate_c_cdna () {
     printf "### Running EXONERATE for C regions using cDNA\n"
 
     # Change intron size of C region
-    conda run -n murcielagos exonerate \
+    exonerate \
     --cores 4 \
     --model est2genome \
     --showtargetgff TRUE \
@@ -434,7 +435,7 @@ run_hmmer () {
         ./RESULTS/$SPECIE/BLAST/scaffolds_extracted
 
         # Reformat output file to gff 
-        conda run -n murcielagos python3 ./SCRIPTS/SUBSCRIPTS/hmmer_tbl_to_gff.py --file ./RESULTS/$SPECIE/HMMER/$dir/nhmmer_$dir.tbl --source hmmerscan --bitscore 0 
+        python3 ./SCRIPTS/SUBSCRIPTS/hmmer_tbl_to_gff.py --file ./RESULTS/$SPECIE/HMMER/$dir/nhmmer_$dir.tbl --source hmmerscan --bitscore 0 
 
         # Rename output file
         mv ./RESULTS/$SPECIE/HMMER/$dir/nhmmer_$dir.gff ./RESULTS/$SPECIE/HMMER/$dir/nhmmer_${dir}_${SHORT_GS}.gff 
@@ -627,6 +628,7 @@ merge_gffs () {
 
     # Remove temp
     rm RESULTS/$SPECIE/GFF/temp.gff
+    rm temp.gff
 }
 
 ############# MAKE BED FROM FINAL BED #################
