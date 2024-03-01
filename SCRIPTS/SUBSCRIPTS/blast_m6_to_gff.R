@@ -80,7 +80,6 @@ data <- read.delim(file, header = FALSE,
 
 df <- data.frame(seqid = NA, source = NA, type = NA, start = NA, end = NA, score = NA, strand = NA, phase = NA, attributes = NA) # Begin empty df with gff3 columns
 
-
 for (i in 1:nrow(data)) {
   if (data[i,]$bit_score > bitscore ) {
   # Make the record
