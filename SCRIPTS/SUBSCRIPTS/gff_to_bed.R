@@ -79,7 +79,7 @@ bed_df$itemRgb <- with(bed_df,ifelse(strand == "+", "255,0,0",
                                      ifelse(strand == "-", "0,0,255", "0,255,0" )))
 
 # Select only RSS and exons
-bed_df <- bed_df[grepl("RSS|_exon_", bed_df$name),]
+bed_df <- bed_df[grepl("RSS_V-associated|_exon_", bed_df$name),]
 
 # Eliminate "ID=" from name
 bed_df$name <- gsub("ID=", "", bed_df$name)
@@ -158,6 +158,9 @@ bed_df$name <- paste0(paste0(name_specie, "_IGHV_", sprintf('%0.3d', vec_convers
                       with(bed_df,ifelse(strand == "+", "FOR", ifelse(strand == "-", "REV", "." ))), "|")
 
 bed_df$seg_size <- NULL
+
+# Reorder by element number and strand
+bed_df <- bed_df[order(bed_df$strand, bed_df$name),]
 
 # Save results
 write.table(bed_df, file = OUTFILE, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
