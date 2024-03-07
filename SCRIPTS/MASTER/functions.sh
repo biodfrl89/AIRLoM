@@ -640,3 +640,4 @@ gff_to_bed () {
     echo 'track name="Bed_results" description="Bed anotation for manual inspection" visibility=2 itemRgb="On"' | cat - RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.bed >RESULTS/$SPECIE/GFF/final_bed_${SHORT_GS}.bed
     rm RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.bed
 }
+
