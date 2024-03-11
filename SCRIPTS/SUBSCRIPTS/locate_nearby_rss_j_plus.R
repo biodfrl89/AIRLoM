@@ -137,7 +137,7 @@ if (length(overlaps) < 1) {
     v_new_width_dif <- abs(rss_real_end - v_start)
       
     # Modify width
-    gff_overlaps[j_subject]@ranges@width <- as.integer(gff_overlaps[j_subject]@ranges@width - v_new_width_dif)
+    gff_overlaps[j_subject]@ranges@width <- abs(as.integer(gff_overlaps[j_subject]@ranges@width - v_new_width_dif))
       
     # Replace V segment start
     gff_overlaps[j_subject]@ranges@start <- as.integer(rss_real_end)
