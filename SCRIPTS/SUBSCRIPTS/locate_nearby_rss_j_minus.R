@@ -131,7 +131,7 @@ if (length(overlaps) < 1) {
     # Replace RSS real width in in the record
     gff_nhmmer@ranges@width[j_query] <- as.integer(hmm_tbl[j_query, "modlen"])
       
-    # Replace V segment start with new location
+    # Replace J segment start with new location
     gff_overlaps[j_subject]@ranges@start <- as.integer(rss_real_begin - gff_overlaps[j_subject]@ranges@width + 1)
       
     # Calculate the distance width between the real start of the RSS and the start of v segment

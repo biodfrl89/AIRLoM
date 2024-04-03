@@ -572,7 +572,7 @@ detect_d () {
     -f ./RESULTS/$SPECIE/HMMER/RSS_IGHD_5/nhmmer_RSS_IGHD_5_${SHORT_GS}.gff \
     -t ./RESULTS/$SPECIE/HMMER/RSS_IGHD_3/nhmmer_RSS_IGHD_3_${SHORT_GS}.gff >/dev/null 2>&1
 
-    mv RSS_D_IGH_D_segments.gff ./RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff
+    mv RSS_D_IGHD_segments.gff ./RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff
 }
 
 ############# CORRECT COORDINATES FOR V AND RSS #################
@@ -614,7 +614,7 @@ merge_gffs () {
     [[ -f RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/D_SEGMENTS/D_RSS_analysis_${SHORT_GS}.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff >>temp.gff
-    [[ -f RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSSq_plus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_plus_analysis_${SHORT_GS}.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff ]] && cat RESULTS/$SPECIE/J_RSS_CORRECTED/J_RSS_minus_analysis_${SHORT_GS}.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_genes.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_genes.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff >>temp.gff

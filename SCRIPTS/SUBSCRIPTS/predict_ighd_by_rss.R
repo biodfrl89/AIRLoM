@@ -100,10 +100,11 @@ gr_segments <- gr_reduced_sorted[dist_log]
 # Create a new GR object. The seqname correspond to the detected scaffold. 
 # Iranges is constructed considering the end of one RSS and the same but adding the distance of the D segment, minus one position
 D_segmentes_gr <- GenomicRanges::GRanges(
-  seqnames = rep(unique(gr_segments@seqnames), length(gr_segments)),
-  ranges = IRanges::IRanges(gr_segments@ranges@start + gr_segments@ranges@width, 
-                   end = gr_segments@ranges@start + gr_segments@ranges@width + distances[dist_log] -1, 
-                   names = paste0("D_segment_", 1:length(gr_segments))),
+  seqnames = rep(unique(gr_segments@seqnames), S4Vectors::runLength(gr_segments@seqnames)),
+  ranges = IRanges::IRanges(
+    gr_segments@ranges@start + gr_segments@ranges@width,
+    end = gr_segments@ranges@start + gr_segments@ranges@width + distances[dist_log] -1, 
+    names = paste0("D_segment_", 1:length(gr_segments))),
   source = "predicted",
   type = "D_segment", 
   score = ".", 
@@ -117,4 +118,4 @@ names(gr_merged) <- paste0(names(gr_merged), seq_along(gr_merged))
 final_merged <- c(gr_merged, D_segmentes_gr)
 
 # Save the resulting GR object as gff
-rtracklayer::export(final_merged , "RSS_D_IGH_D_segments.gff", format = "gff3") 
+rtracklayer::export(final_merged, "RSS_D_IGHD_segments.gff", format = "gff3") 

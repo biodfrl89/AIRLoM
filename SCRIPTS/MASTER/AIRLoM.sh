@@ -62,13 +62,13 @@ check_arguments
 ## ----- FORMAT NAMES -----
 format_name 
 
-#cat <<-'JUMP' >/dev/null 2>&1
-
 # ----- RUN CD-HIT -----
 run_cdhit 
 
 ## ----- REASSING VARIABLES -----
 reassign_vars
+
+#at <<-'JUMP' >/dev/null 2>&1
 
 # ----- MOVE GENOME AND MAKE BLAST DATABASE -----
 move_genome
@@ -120,7 +120,6 @@ conda deactivate
 conda activate R
 vulgar_to_table
 
-
 # Remove raw exonerate
 rm ./RESULTS/$SPECIE/EXONERATE/exonerate*$SHORT_GS
 
@@ -152,6 +151,10 @@ exonerate_overlap_v_aa
 mkdir -p ./RESULTS/$SPECIE/J_RSS_CORRECTED
 correct_j_plus
 correct_j_minus
+
+#JUMP
+
+conda activate R
 
 # ----- DETECT D SEGMENTS -----
 mkdir -p ./RESULTS/$SPECIE/D_SEGMENTS/
