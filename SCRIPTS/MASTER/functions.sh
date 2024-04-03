@@ -581,7 +581,7 @@ correct_v_plus () {
     Rscript ./SCRIPTS/SUBSCRIPTS/locate_nearby_rss_v_plus.R \
     -n ./RESULTS/$SPECIE/HMMER/RSS_IGHV/nhmmer_RSS_IGHV_${SHORT_GS}.gff \
     -t ./RESULTS/$SPECIE/HMMER/RSS_IGHV/nhmmer_RSS_IGHV.tbl \
-    -v ./RESULTS/$SPECIE/OVERLAP/overlap_gene_prediction_IGHV_vs_${SHORT_GS}_plus.gff \
+    -v ./RESULTS/$SPECIE/OVERLAP/overlap_gene_prediction_IGHV_cDNA_vs_${SHORT_GS}_plus.gff  \
     -r 30 >/dev/null 2>&1
 
     test -f "v_rss_plus_analysis.gff" && mv v_rss_plus_analysis.gff ./RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_plus_analysis_${SHORT_GS}.gff
@@ -592,7 +592,7 @@ correct_v_minus () {
     Rscript ./SCRIPTS/SUBSCRIPTS/locate_nearby_rss_v_minus.R \
     -n ./RESULTS/$SPECIE/HMMER/RSS_IGHV/nhmmer_RSS_IGHV_${SHORT_GS}.gff \
     -t ./RESULTS/$SPECIE/HMMER/RSS_IGHV/nhmmer_RSS_IGHV.tbl \
-    -v ./RESULTS/$SPECIE/OVERLAP/overlap_gene_prediction_IGHV_vs_${SHORT_GS}_minus.gff \
+    -v ./RESULTS/$SPECIE/OVERLAP/overlap_gene_prediction_IGHV_cDNA_vs_${SHORT_GS}_minus.gff  \
     -r 30 >/dev/null 2>&1
 
     test -f "v_rss_minus_analysis.gff" && mv v_rss_minus_analysis.gff ./RESULTS/$SPECIE/V_RSS_CORRECTED/V_RSS_minus_analysis_${SHORT_GS}.gff
