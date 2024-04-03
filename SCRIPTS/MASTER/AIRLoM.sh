@@ -34,25 +34,26 @@ RSS_V="./SCRIPTS/SEQ_DB/RAW/IGHV_RSS3_7bat.fna"
 RSS_D3="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS3_7bat.fna"
 RSS_D5="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS5_7bat.fna"
 RSS_J="./SCRIPTS/SEQ_DB/RAW/IGHJ_RSS5_7bat.fna"
-
+SIG_P="./SCRIPTS/SEQ_DB/RAW/L1_exon_7bat.fna"
 #NOTE: OPTION IN GETOPTS MUST ALSO HAVE A FLAG TO CATCH THE ARGUMENT
-while getopts ":hs:g:a:m:i:j:k:l:w:x:y:z:" flag
+while getopts ":hs:g:a:m:i:j:k:l:p:w:x:y:z:" flag
 do
         case "${flag}" in
         s | specie) SPECIE=${OPTARG} ;;
-		g | genome) GENOME=${OPTARG} ;;
-		a | annotation) ANNOTATION=${OPTARG} ;;
-		i | igh_v_cdna) IGH_V_CDNA=${OPTARG} ;;
-		j | igh_c_cdna) IGH_C_CDNA=${OPTARG} ;;
-		k | igh_v_aa) IGH_V_AA=${OPTARG} ;;
-		l | igh_j_cdna) IGH_J_CDNA=${OPTARG} ;;
-		w | rss_v) RSS_V=${OPTARG} ;;
-		x | rss_d3) RSS_D3=${OPTARG} ;;
-		y | rss_d5) RSS_D5=${OPTARG} ;;
-		z | rss_j) RSS_J=${OPTARG} ;;
-		h | help) usage ;;
-		:) echo -e "\nMissing argument submitted ($OPTARG).\n" && usage && exit 1 ;;
-		\?) echo -e "\nInvalid option submitted.\n" && usage && exit 1 ;;
+                g | genome) GENOME=${OPTARG} ;;
+                a | annotation) ANNOTATION=${OPTARG} ;;
+                i | igh_v_cdna) IGH_V_CDNA=${OPTARG} ;;
+                j | igh_c_cdna) IGH_C_CDNA=${OPTARG} ;;
+                k | igh_v_aa) IGH_V_AA=${OPTARG} ;;
+                l | igh_j_cdna) IGH_J_CDNA=${OPTARG} ;;
+                p | signal_p)  SIG_P=${OPTARG} ;;
+                w | rss_v) RSS_V=${OPTARG} ;;
+                x | rss_d3) RSS_D3=${OPTARG} ;;
+                y | rss_d5) RSS_D5=${OPTARG} ;;
+                z | rss_j) RSS_J=${OPTARG} ;;
+                h | help) usage ;;
+                :) echo -e "\nMissing argument submitted ($OPTARG).\n" && usage && exit 1 ;;
+                \?) echo -e "\nInvalid option submitted.\n" && usage && exit 1 ;;
         esac
 done
 
