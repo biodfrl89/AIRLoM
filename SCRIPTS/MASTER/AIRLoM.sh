@@ -109,7 +109,7 @@ exonerate_v_cdna
 exonerate_v_aa
 exonerate_j_cdna
 exonerate_c_cdna
-
+bedgraph_files
 # ----- EXTRACT VULGAR FROM EXONERATE -----
 extract_exonerate_vulgar
 
