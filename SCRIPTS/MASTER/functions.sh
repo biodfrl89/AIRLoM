@@ -9,20 +9,22 @@ cat <<-'EOF'
     SYNTAX:
     ./master_job_IGH_bats_analysis.sh [-s|-specie GENUS_SPECIE] [-g|--genome GENOME_FILE]
     [-a|--annotation ANNOTATION_FILE] [-i|--igh_v_cdna FASTA_FILE]
-    [-j|--igh_c_cdna FASTA_FILE] [-k|--igh_v_aa FASTA_FILE] [-w|--rss_v FASTA_FILE]
-    [-x|--rss_d3 FASTA_FILE] [-y|--rss_d5 FASTA_FILE] [-z|--rss_j FASTA_FILE]
+    [-j|--igh_c_cdna FASTA_FILE] [-k|--igh_v_aa FASTA_FILE] [-p|--signal_p FASTA_FILE]
+    [-w|--rss_v FASTA_FILE] [-x|--rss_d3 FASTA_FILE] 
+    [-y|--rss_d5 FASTA_FILE] [-z|--rss_j FASTA_FILE]
 
     OPTIONS:
-    -s, --specie		Name of the specie to be analized. Format: GENUS_SPECIE. Mandatory.
-    -g, --genome		The file that has the compressed genome to be analized. Must be a .fna.gz file. Mandatory.
-    -a, --annotation	The annotations file of the .fna.gz. It also has to be compressed. Must be a .gff.gz file. Optional.
-    -i, --igh_v_cdna	A fasta file with the cDNA sequences of IGHV. Mandatory.
-    -j, --igh_c_cdna	A fasta file with the cDNA sequences of IGHC. Mandatory.
-    -k, --igh_v_aa		A fasta file with the aminoacid sequences of IGHV. Mandatory.
-    -w, --rss_v		A fasta file with the RSS sequences for the V genes. Mandatory.
-    -x, --rss_d3		A fasta file with the RSS sequences for the 3' of D genes. Mandatory.
-    -y, --rss_d5		A fasta file with the RSS sequences for the 5' of D genes. Mandatory.
-    -z, --rss_j		A fasta file with the RSS sequences for the J genes. Mandatory
+    -s, --specie                Name of the specie to be analized. Format: GENUS_SPECIE. Mandatory.
+    -g, --genome                The file that has the compressed genome to be analized. Must be a .fna.gz file. Mandatory.
+    -a, --annotation    The annotations file of the .fna.gz. It also has to be compressed. Must be a .gff.gz file. Optional.
+    -i, --igh_v_cdna    A fasta file with the cDNA sequences of IGHV. Mandatory.
+    -j, --igh_c_cdna    A fasta file with the cDNA sequences of IGHC. Mandatory.
+    -k, --igh_v_aa              A fasta file with the aminoacid sequences of IGHV. Mandatory.
+    -p, --signal_p      A fasta file peptide signal.
+    -w, --rss_v         A fasta file with the RSS sequences for the V genes. Mandatory.
+    -x, --rss_d3                A fasta file with the RSS sequences for the 3' of D genes. Mandatory.
+    -y, --rss_d5                A fasta file with the RSS sequences for the 5' of D genes. Mandatory.
+    -z, --rss_j         A fasta file with the RSS sequences for the J genes. Mandatory
 
 EOF
 exit 1
@@ -90,6 +92,15 @@ check_arguments () {
 
     # Check that file exists.
     [[ ! -f $RSS_J ]] && echo -e "\nRSS_J fasta file not found.\n" && exit 1
+
+## FILE SIGNAL_PEPTIDE
+
+    # Check if VAR is empty.
+    [[ -z $SIG_P ]] && echo -e "\nNo SIGNAL_P fasta file submitted.\n" && exit 1
+
+    # Check that file exists.
+    [[ ! -f $SIG_P ]] && echo -e "\nSIGNAL_P fasta file not found.\n" && exit 1
+
 }
 
 ############# CDHIT #################
@@ -104,13 +115,15 @@ run_cdhit () {
     cd-hit-est -i $RSS_D5 -o cdhit_IGHD_RSS5.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
     cd-hit-est -i $RSS_D3 -o cdhit_IGHD_RSS3.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
     cd-hit-est -i $RSS_J -o cdhit_IGHJ_RSS5.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
+    cd-hit-est -i $SIG_P -o cdhit_L1_exon_7bat.fna -c 0.95 -n 5 -M 2000 -T 4 >/dev/null 2>&1
 
     printf "### Running CLUSTAL alignment in RSS clustered sequences\n"
     clustalw2 -align -quiet -infile=cdhit_IGHV_RSS3.fna -OUTFILE=clustal_IGHV_RSS3.fna -OUTPUT=FASTA >/dev/null 2>&1
     clustalw2 -align -quiet -infile=cdhit_IGHD_RSS5.fna -OUTFILE=clustal_IGHD_RSS5.fna -OUTPUT=FASTA >/dev/null 2>&1
     clustalw2 -align -quiet -infile=cdhit_IGHD_RSS3.fna -OUTFILE=clustal_IGHD_RSS3.fna -OUTPUT=FASTA >/dev/null 2>&1
     clustalw2 -align -quiet -infile=cdhit_IGHJ_RSS5.fna -OUTFILE=clustal_IGHJ_RSS5.fna -OUTPUT=FASTA >/dev/null 2>&1
-
+    clustalw2 -align -quiet -infile=cdhit_L1_exon_7bat.fna -OUTFILE=clustal_L1_exon_7bat.fna -OUTPUT=FASTA >/dev/null 2>&1
+    
     printf "### Moving database files\n"
     rm cdhit*.dnd
     rm cdhit*RSS?.fna
@@ -131,6 +144,7 @@ reassign_vars () {
     RSS_D5="./SCRIPTS/SEQ_DB/RSS/clustal_IGHD_RSS5.fna"
     RSS_D3="./SCRIPTS/SEQ_DB/RSS/clustal_IGHD_RSS3.fna"
     RSS_J="./SCRIPTS/SEQ_DB/RSS/clustal_IGHJ_RSS5.fna"
+    SIG_P="./SCRIPTS/SEQ_DB/FASTAS/cdhit_L1_exon_7bat.fna"
 }
 
 ############# CREATE SPECIES SHORT NAME #################
@@ -354,6 +368,32 @@ exonerate_c_cdna () {
     -t ./RESULTS/$SPECIE/BLAST/scaffolds_extracted >./RESULTS/$SPECIE/EXONERATE/exonerate_IGHC_cDNA_vs_$SHORT_GS
 }
 
+############# FUNCTION CREATE FILES BEDGRAPH #################
+bedgraph_files () {
+    printf "### concatenation of IGHV files, splice3 & splice5 extraction, for the formation of .bedgrapth files"
+
+    cat ./RESULTS/$SPECIE/EXONERATE/exonerate_IGHV_cDNA_vs_$SHORT_GS \
+        ./RESULTS/$SPECIE/EXONERATE/exonerate_IGHV_vs_$SHORT_GS | \
+        cut -f1,2,3,4,5 | \
+        grep -P "\tsplice5\t|\tsplice3\t" > \
+        ./RESULTS/$SPECIE/EXONERATE/concat_mapping_$SHORT_GS.gff
+
+    grep -P "\tsplice5\t" ./RESULTS/$SPECIE/EXONERATE/concat_mapping_$SHORT_GS.gff | \
+        cut -f1,4 | \
+        sort -nk1 | \
+        uniq -c >./RESULTS/$SPECIE/EXONERATE/splice5_tmp
+
+    grep -P "\tsplice3\t" ./RESULTS/$SPECIE/EXONERATE/concat_mapping_$SHORT_GS.gff | \
+        cut -f1,4 | \
+        sort -nk1 | \
+        uniq -c >./RESULTS/$SPECIE/EXONERATE/splice3_tmp
+
+    awk 'OFS = "\t" {print $2,$3,$3,$1}' ./RESULTS/$SPECIE/EXONERATE/splice3_tmp >./RESULTS/$SPECIE/EXONERATE/splice3_$SHORT_GS.bedgraph
+
+    awk 'OFS = "\t" {print $2,$3,$3,$1}' ./RESULTS/$SPECIE/EXONERATE/splice5_tmp >./RESULTS/$SPECIE/EXONERATE/splice5_$SHORT_GS.bedgraph
+}
+
+
 ############# EXTRACT VULGAR FROM EXONERATE #################
 extract_exonerate_vulgar () {
     printf "### Extracting vulgar anotation from exonerate output file\n"
@@ -407,8 +447,10 @@ run_hmmer () {
     hmmbuild --dna ./RESULTS/$SPECIE/HMMER/DB/hmmprofile_RSS_IGHD_5.hmm $RSS_D5 >/dev/null 2>&1
     hmmbuild --dna ./RESULTS/$SPECIE/HMMER/DB/hmmprofile_RSS_IGHD_3.hmm $RSS_D3 >/dev/null 2>&1
     hmmbuild --dna ./RESULTS/$SPECIE/HMMER/DB/hmmprofile_RSS_IGHJ.hmm $RSS_J >/dev/null 2>&1
+    hmmbuild --dna ./RESULTS/$SPECIE/HMMER/DB/hmmprofile_SIG_P.hmm $SIG_P >/dev/null 2>&1
 
-    RSS_DIRS="RSS_IGHV RSS_IGHD_5 RSS_IGHD_3 RSS_IGHJ"
+    RSS_DIRS="RSS_IGHV RSS_IGHD_5 RSS_IGHD_3 RSS_IGHJ SIG_P"
+
 
     # Prepare profile database for hmmscan
     printf "### Pressing hmmer databases for hmmerscan\n"
