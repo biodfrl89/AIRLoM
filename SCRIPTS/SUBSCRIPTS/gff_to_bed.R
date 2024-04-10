@@ -75,37 +75,38 @@ bed_df <- data.frame(chrom = df$seqname,
                      strand = df$strand,
                      thickStart = df$start,
                      thickEnd = df$end)
+# Add color to track according to direction
 bed_df$itemRgb <- with(bed_df,ifelse(strand == "+", "255,0,0", 
                                      ifelse(strand == "-", "0,0,255", "0,255,0" )))
 
 # Select only RSS and exons
-bed_df <- bed_df[grepl("RSS_V-associated|_exon_", bed_df$name),]
+bed_df_rss_exons <- bed_df[grepl("RSS_V-associated|_exon_", bed_df$name),]
 
 # Eliminate "ID=" from name
-bed_df$name <- gsub("ID=", "", bed_df$name)
+bed_df_rss_exons$name <- gsub("ID=", "", bed_df_rss_exons$name)
 
 # Make second field
 second_field <- c()
 c <- 1
-for (i in seq_along(bed_df$name)) {
-  if (grepl("RSS", bed_df$name[c])) {
+for (i in seq_along(bed_df_rss_exons$name)) {
+  if (grepl("RSS", bed_df_rss_exons$name[c])) {
     second_field[c] <- "IGHV_RSS3"  
-  } else if (grepl("IGHV_exon", bed_df$name[c])) {
+  } else if (grepl("IGHV_exon", bed_df_rss_exons$name[c])) {
     second_field[c] <- "IGHV_exon"  
   } 
   c <- c + 1
 }
 
 # Make final attribute for bed column "name"
-bed_df$name <- paste0(name_specie, "_", gsub("_plus|_minus", "", bed_df$name), "|", 
+bed_df_rss_exons$name <- paste0(name_specie, "_", gsub("_plus|_minus", "", bed_df_rss_exons$name), "|", 
                       second_field, "|", 
                       "|",
-                      with(bed_df,ifelse(strand == "+", "FOR", ifelse(strand == "-", "REV", "." ))))
+                      with(bed_df_rss_exons,ifelse(strand == "+", "FOR", ifelse(strand == "-", "REV", "." ))))
 
-#### Correct coordinates for plus and minus
+######## SECTION 2 - Correct coordinates for plus and minus
 # Select strands
-df_plus <- bed_df[bed_df$strand == "+",]
-df_minus <- bed_df[bed_df$strand == "-",]
+df_plus <- bed_df_rss_exons[bed_df_rss_exons$strand == "+",]
+df_minus <- bed_df_rss_exons[bed_df_rss_exons$strand == "-",]
 
 # Correct coordinates
 df_plus$chromStart <- df_plus$chromStart - 1
@@ -114,7 +115,7 @@ df_minus$chromStart <- df_minus$chromStart - 1
 df_minus$thickStart <- df_minus$thickStart - 1
 
 # Make bed again
-bed_df <- rbind(df_plus, df_minus)
+bed_df_rss_exons <- rbind(df_plus, df_minus)
 
 # Separate genes 
 genes <- gff[grepl("IGHV_gene_.*_", gff$ID)]
@@ -131,37 +132,59 @@ gr <- GenomicRanges::findOverlaps(genes, features)
 genes@ranges@start <- as.integer(genes@ranges@start + 100)
 genes@ranges@width <- as.integer(genes@ranges@width - 200)
 
+
 vec_conversion <- c()
 for (i in seq_along(gr)) {
   vec_conversion[gr@to[i]] <- gr@from[i]
 }
 
+
 # Make final attribute for bed column "name"
-bed_df$name <- paste0(paste0(name_specie, "_IGHV_", sprintf('%0.3d', vec_conversion)), "|", 
+bed_df_rss_exons$name <- paste0(paste0(name_specie, "_IGHV_", sprintf('%0.3d', vec_conversion)), "|", 
                       second_field, "|", 
                       "|",
-                      with(bed_df,ifelse(strand == "+", "FOR", ifelse(strand == "-", "REV", "." ))), "|")
+                      with(bed_df_rss_exons,ifelse(strand == "+", "FOR", ifelse(strand == "-", "REV", "." ))), "|")
 
 
-bed_df$seg_size <- abs(bed_df$chromStart - bed_df$chromEnd) 
+bed_df_rss_exons$seg_size <- abs(bed_df_rss_exons$chromStart - bed_df_rss_exons$chromEnd) 
 
-for (i in 1:nrow(bed_df)) {
-  if (bed_df$seg_size[i] < 60 & grepl("IGHV_exon", bed_df$name[i])) {
+for (i in 1:nrow(bed_df_rss_exons)) {
+  if (bed_df_rss_exons$seg_size[i] < 60 & grepl("IGHV_exon", bed_df_rss_exons$name[i])) {
     second_field[i] <- "SP_exon"
   }
 }
 
 # Make final attribute for bed column "name"
-bed_df$name <- paste0(paste0(name_specie, "_IGHV_", sprintf('%0.3d', vec_conversion)), "|", 
+bed_df_rss_exons$name <- paste0(paste0(name_specie, "_IGHV_", sprintf('%0.3d', vec_conversion)), "|", 
                       second_field, "|", 
                       "|",
-                      with(bed_df,ifelse(strand == "+", "FOR", ifelse(strand == "-", "REV", "." ))), "|")
+                      with(bed_df_rss_exons,ifelse(strand == "+", "FOR", ifelse(strand == "-", "REV", "." ))), "|")
 
-bed_df$seg_size <- NULL
+bed_df_rss_exons$seg_size <- NULL
 
-# Reorder by element number and strand
-bed_df <- bed_df[order(bed_df$strand, bed_df$name),]
 
-# Save results
-write.table(bed_df, file = OUTFILE, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
+bed_df_rss_exons <- bed_df_rss_exons[order(bed_df_rss_exons$strand, bed_df_rss_exons$name),]
 
+###### SECTION 3 - PSEUDOGENES
+
+# Extract names and the max number for V
+temp <- gsub("^.*_IGHV_", "", bed_df_rss_exons[grepl("IGHV_exon", bed_df_rss_exons$name),]$name)
+max_number_v <- max(gsub("\\|.*", "", temp))
+
+# Get features anotated with pseudogenes
+bed_pseudo <- bed_df[grepl("IGHV_pseudogene", bed_df$name),]
+
+# Create numbers for pseudogenes anotations
+pseudo_numbers <- (as.numeric(max_number_v)+1):(as.numeric(max_number_v) + nrow(bed_pseudo)) 
+
+# Assign new names to names in BED of pseudogenes 
+bed_pseudo$name <- paste0(paste0(name_specie, "_IGHV_", sprintf('%0.3d', pseudo_numbers)), "|", 
+       "exon", "|", 
+       "|",
+       with(bed_pseudo, ifelse(strand == "+", "FOR", ifelse(strand == "-", "REV", "." ))), "|")
+
+# Merge df
+final_bed_df <- rbind(bed_df_rss_exons, bed_pseudo)
+
+# Save
+write.table(final_bed_df, file = "results_test.bed", quote = FALSE, row.names = FALSE, sep = "\t", col.names = FALSE)
