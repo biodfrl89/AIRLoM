@@ -187,4 +187,4 @@ bed_pseudo$name <- paste0(paste0(name_specie, "_IGHV_", sprintf('%0.3d', pseudo_
 final_bed_df <- rbind(bed_df_rss_exons, bed_pseudo)
 
 # Save
-write.table(final_bed_df, file = "results_test.bed", quote = FALSE, row.names = FALSE, sep = "\t", col.names = FALSE)
+write.table(final_bed_df, file = OUTFILE, quote = FALSE, row.names = FALSE, sep = "\t", col.names = FALSE)
