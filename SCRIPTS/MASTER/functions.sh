@@ -217,7 +217,7 @@ blast_j_cdna () {
     -query $IGH_J_CDNA \
     -db ./RESULTS/$SPECIE/BLAST/DB/BLAST_DB \
     -outfmt 6 \
-    -evalue 1e-4 \
+    -evalue 1e-1 \
     -num_threads 12 \
     -max_target_seqs 100 \
     -out ./RESULTS/$SPECIE/BLAST/tblastx_IGHJ_cDNA_vs_$SHORT_GS.m6
@@ -309,7 +309,7 @@ exonerate_v_cdna () {
     --bestn 30  \
     --softmasktarget TRUE \
     --maxintron 1000 \
-    --score 1000 \
+    --score 100 \
     -q $IGH_V_CDNA \
     -t ./RESULTS/$SPECIE/BLAST/scaffolds_extracted >./RESULTS/$SPECIE/EXONERATE/exonerate_IGHV_cDNA_vs_$SHORT_GS
 }
@@ -324,7 +324,7 @@ exonerate_v_aa () {
     --showalignment no \
     --showvulgar yes \
     --bestn 30  \
-    --score 300 \
+    --score 100 \
     --softmasktarget TRUE \
     --maxintron 1000 \
     -q $IGH_V_AA \
@@ -662,8 +662,8 @@ merge_gffs () {
     [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_minus_exons.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_genes.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_genes.gff >>temp.gff
     [[ -f RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_exons.gff ]] && cat RESULTS/$SPECIE/REDUCTION/reduced_exonerate_IGHC_cDNA_vs_${SHORT_GS}_plus_exons.gff >>temp.gff
-    [[ -f RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_plus.gff ]] && cat RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_plus.gff >>temp.gff
-    [[ -f RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_minus.gff ]] && cat RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_vs_${SHORT_GS}_minus.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_cDNA_vs_${SHORT_GS}_plus.gff ]] && cat RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_cDNA_vs_${SHORT_GS}_plus.gff >>temp.gff
+    [[ -f RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_cDNA_vs_${SHORT_GS}_minus.gff ]] && cat RESULTS/$SPECIE/OVERLAP/overlap_exon_prediction_IGHV_cDNA_vs_${SHORT_GS}_minus.gff >>temp.gff
 
     # Clean gff file and give final name
     grep -v "#" temp.gff >RESULTS/$SPECIE/GFF/final_gff_${SHORT_GS}.gff
