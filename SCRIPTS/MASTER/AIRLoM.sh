@@ -26,14 +26,14 @@ source ./SCRIPTS/MASTER/functions.sh
 [ $# -eq 0 ] && echo -e "\nNo arguments given.\n" && usage
 
 # Give default values to every fasta file to be used to create databases
-IGH_V_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_7bat_01_11_23.fna"
-IGH_C_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHC_F_cDNA.fna"
-IGH_V_AA="./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_7bat_01_11_23.faa"
-IGH_J_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHJ_7bat.fna"
-RSS_V="./SCRIPTS/SEQ_DB/RAW/IGHV_RSS3_7bat.fna"
-RSS_D3="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS3_7bat.fna"
-RSS_D5="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS5_7bat.fna"
-RSS_J="./SCRIPTS/SEQ_DB/RAW/IGHJ_RSS5_7bat.fna"
+IGH_V_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_9bat_12_02_24.fna"
+IGH_C_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHC_9bat_12_04_2024.fna"
+IGH_V_AA="./SCRIPTS/SEQ_DB/RAW/IGHV_CDS_9bat_12_02_24.faa"
+IGH_J_CDNA="./SCRIPTS/SEQ_DB/RAW/IGHJ_9bat.fna"
+RSS_V="./SCRIPTS/SEQ_DB/RAW/IGHV_RSS3_9bat.fna"
+RSS_D3="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS3_9bat.fna"
+RSS_D5="./SCRIPTS/SEQ_DB/RAW/IGHD_RSS5_9bat.fna"
+RSS_J="./SCRIPTS/SEQ_DB/RAW/IGHJ_RSS5_9bat.fna "
 SIG_P="./SCRIPTS/SEQ_DB/RAW/L1_exon_7bat.fna"
 #NOTE: OPTION IN GETOPTS MUST ALSO HAVE A FLAG TO CATCH THE ARGUMENT
 while getopts ":hs:g:a:m:i:j:k:l:p:w:x:y:z:" flag
