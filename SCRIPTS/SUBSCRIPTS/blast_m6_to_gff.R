@@ -2,6 +2,7 @@
 # Description: This scripts reformat the m6 format of the blast output into a gff formated file 
 # Author: David Felipe Rendón Luna 
 # Date: December-2023
+# Update: August-2024 by Ernestina Godoy (elizabeth.godoy@insp.mx)
 
 # CHECK LIBRARIES AND ARGUMENTS -------------------------------------------
 
@@ -12,6 +13,8 @@ if(suppressMessages(!require("optparse"))) {
 
 # Load parser
 library("optparse")
+suppressMessages(library("dplyr"))
+
 # Create list of arguments and help asociadted to receive.
 opt_list = list(make_option(opt_str = c("-f", "--file"), 
                             action="store",
@@ -78,30 +81,41 @@ outname <- sub(".m6", ".gff", file)
 data <- read.delim(file, header = FALSE, 
                    col.names = c("query_seqid", "subject_seqid", "perc_ident", "length", "mismatch", "gap_open", "query_start", "query_end", "subject_start", "subject_end", "e_value", "bit_score"))
 
-df <- data.frame(seqid = NA, source = NA, type = NA, start = NA, end = NA, score = NA, strand = NA, phase = NA, attributes = NA) # Begin empty df with gff3 columns
+# Sort by subject_seqid, subject_start and bit_score (decrease)
+data_sort <- data[order(data$subject_seqid,data$subject_start,-data$bit_score, data$e_value),]
 
-for (i in 1:nrow(data)) {
-  if (data[i,]$bit_score > bitscore ) {
-  # Make the record
-    df[i,] <- c(data[i,]$subject_seqid,
-               source,
-               "gene",
-               data[i,]$subject_start,
-               data[i,]$subject_end, 
-               ".", ".", ".",
-               paste0("Query=", data[i,]$query_seqid))
-  }
-  # Add positive strand symbol
-  if (df[i,]$end > df[i,]$end) {
-    df[i,]$strand <- "+"
-  } else {
-  # Add negative strand symbol and correct coordinates 
-    rec_start <- df[i,]$end
-    rec_end <- df[i,]$start
-    df[i,]$start <- rec_start
-    df[i,]$end <- rec_end
-    df[i,]$strand <- "-"
-  }
+# remove redundancy 
+data_sort$ss_se <- paste(data_sort$subject_start, data_sort$subject_end, sep=".")
+
+data_sort_uniq <- data_sort %>%
+  distinct(ss_se, .keep_all = TRUE)
+
+# Build GFF
+df <- data.frame(seqid = data_sort_uniq$subject_seqid,
+                 source = source,
+                 type = "gene",
+                 start = data_sort_uniq$subject_start,
+                 end = data_sort_uniq$subject_end,
+                 score = ".", strand = ".", phase = ".",
+                 attributes = paste0("Query=", data_sort_uniq$query_seqid, ";evalue=", data_sort_uniq$e_value, ";bitscore=", data_sort_uniq$bit_score, ";pident=", data_sort_uniq$perc_ident))
+
+print("Start correcting coordinates and set strand value")
+
+positives <- which(df$end>df$start)
+
+if (length(positives)>0){
+  df$strand[positives] <- "+"
+  df$strand[-positives] <- "-"
+  rec_start <- df$end[-positives]
+  rec_end <- df$start[-positives]
+  df$start[-positives] <- rec_start
+  df$end[-positives] <- rec_end
+} else{
+  df$strand <- "-"
+  rec_start <- df$end
+  rec_end <- df$start
+  df$start <- rec_start
+  df$end <- rec_end
 }
 
 write.table(df, outname, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
